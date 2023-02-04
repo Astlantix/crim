@@ -23,7 +23,7 @@ bool flywheelEnabled = false;
 
 bool flywheelSettled = false;
 
-static int flywheelSlewSpeed = 0;
+static double flywheelSlewSpeed = 0;
 
 const double FLYWHEEL_kP = .2;
 const double FLYWHEEL_kI = 0.1;
@@ -40,8 +40,8 @@ double flywheelGain = FLYWHEEL_GAIN;
 double flywheelDerivative = 0;
 double flywheelIntegral = 0;
 
-int flywheelAccelStep = 4;
-int flywheelDeccelStep = 256;
+double flywheelAccelStep = 4;
+double flywheelDeccelStep = 256;
 
 bool signbit(double bob) {
 	if(bob < 0) {
@@ -58,20 +58,25 @@ int sgn(T val)
 	return (T(0) < val) - (val < T(0));
 }
 
-void _flywheelSlew(int target) {
+void _flywheelSlew(double target) {
 	int step;
 
-	if (abs(flywheelSlewSpeed) < abs(target))
+	if (abs(flywheelSlewSpeed) < abs(target)) {
 		step = flywheelAccelStep;
-	else
+	}
+	else {
 		step = flywheelDeccelStep;
+	}
 
-	if (target > flywheelSlewSpeed + step)
+	if (target > flywheelSlewSpeed + step){
 		flywheelSlewSpeed += step;
-	else if (target < flywheelSlewSpeed - step)
+	}
+	else if (target < flywheelSlewSpeed - step){
 		flywheelSlewSpeed -= step;
-	else
+	}
+	else{
 		flywheelSlewSpeed = target;
+	}
 
 	flywheel.spin(forward, flywheelSlewSpeed,rpm);
 }
@@ -123,7 +128,7 @@ void flywheelTask(void *parameter)
 		else
 		{
 			flywheelSettled = false;
-			flywheel.spin(forward,0,rpm);
+			flywheel.stop(coast);
 		}
 		// printf("Vel=%.0f Out=%d Settled: %d Error: %.0f P=%.0f I= %.0f D= %.0f\n", flywheel.get_actual_velocity(), flywheelSlewSpeed, flywheelSettled, flywheelError, flywheelError * FLYWHEEL_kP, flywheelIntegral * FLYWHEEL_kI, flywheelDerivative * FLYWHEEL_kD);
 		wait(20,msec);
