@@ -11,4 +11,7 @@ bool isFlywheelSettled();
 
 void flywheelWaitUntilSettled();
 void flywheelPrintInfoToLCD();
+
+void fwstart(double);
+void fwstop(double);
 #endif

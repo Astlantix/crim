@@ -26,9 +26,6 @@
 #include "vex.h"
 
 #include "flywheel.hpp"
-//#include "flywheel.cpp"
-//#include "flywheel.hpp"
-//#include "opcontrol.cpp"
 
 using namespace vex;
 
@@ -48,10 +45,10 @@ double degrees2turns(double degrees) { return 2.8 * degrees; }
 // ..........................................................................
 bool toggle = false;
 bool latch = false;
-double lowgoal = 30;
-double shortdist = 60;
+double lowgoal = 600/30;
+double shortdist = 600/60;
 
-double longdist = 67;
+double longdist = 600/67;
 // ..........................................................................
 // auton variables
 // ..........................................................................
@@ -170,7 +167,7 @@ void sleeping() { wait(15, seconds); }
 
 void shoot(double y, double x, double z) {
   shooter.set(false);
-  flywheel.setVelocity(x, percent);
+  fwstart(600/x);
   wait(100, msec);
   shooter.set(true);
   flywheel.setVelocity(z, percent);
@@ -182,7 +179,7 @@ void lgrRight(bool x) {
   setcoast();
   // shooting 2 preloads into the low goal
   if (x) {
-    flywheel.spin(forward, lowgoal, percent);
+    fwstart(lowgoal);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -207,11 +204,11 @@ void lgrLeft(double x) {
   Rev(70, 30, 0);
   Left(360, 30, 0);
   if (x) {
-    flywheel.spin(forward, shortdist, percent);
+    fwstart(shortdist);
     wait(1000, msec);
     shoot(500, shortdist, shortdist);
     shoot(500, shortdist, shortdist);
-    flywheel.stop(coast);
+    flywheelStop();
   }
 }
 
@@ -224,7 +221,7 @@ void lgrhgRight() {
   spinny.spin(forward, 100, percent);
   For(145, 100, 0);
   Right(168, 30, 0);
-  flywheel.spin(forward, longdist + 3, percent);
+  fwstart(longdist+18);
   For(1500, 30, 0);
   Left(232.5, 50, 1000);
   spinny.stop();
@@ -244,7 +241,7 @@ void lgrhgLeft() {
   Right(408, 30, 100);
   spinny.spin(forward, 100, percent);
   For(550, 50, 250);
-  flywheel.spin(forward, ldist, percent);
+  fwstart(ldist);
   For(1200 - 550, 10, 0);
   Right(275, 20, 0);
   waitUntil(flywheel.velocity(percent) > 67);
@@ -253,7 +250,7 @@ void lgrhgLeft() {
   shoot(300, 100, ldist);
   waitUntil(flywheel.velocity(percent) > 67);
   shoot(300, 100, ldist);
-  flywheel.stop(coast);
+  flywheelStop();
   spinny.stop();
 }
 //good final right side
@@ -263,7 +260,7 @@ void plrhgRight() {
   Right(387, 50, 0);
   spinny.spin(forward, 100, percent);
   For(600, 50, 500);
-  flywheel.spin(forward, 68, percent);
+  fwstart(600/68);
   Left(273, 50, 0);
   waitUntil(flywheel.velocity(percent) > 67);
   shoot(500, 67, longdist);
@@ -276,12 +273,12 @@ void plrhgRight() {
 }
 //good final left side DONT TEST
 void plrhgLeft() {
-  setcoast();
+  /*setcoast();
   lgrLeft(false);
   spinny.spin(forward, 100, percent);
   For(601, 80, 500);
   Right(280,30,500);
-  flywheel.spin(forward,75,percent);
+  fwstart(600/75);
   waitUntil(flywheel.velocity(percent) >= 70);
   shoot(500, 70, 68.5);
   waitUntil(flywheel.velocity(percent) >= 70);
@@ -289,7 +286,8 @@ void plrhgLeft() {
   waitUntil(flywheel.velocity(percent) >= 69);
   shoot(300, 100, 68.5);
   flywheel.stop(coast);
-  spinny.stop();
+  spinny.stop();*/
+  fwstart(360);
 }
 
 
@@ -415,9 +413,11 @@ void usercontrol(void) {
     // shooter
 
     if (toggle) {
-      flywheel.spin(forward, shortdist, percent);
+      //flywheel.spin(forward, shortdist, percent);
+      fwstart(shortdist);
     } else {
-      flywheel.stop(coast);
+      //flywheel.stop(coast);
+      flywheelStop();
     }
 
     if (gamers.ButtonA.pressing()) {

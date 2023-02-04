@@ -1,5 +1,3 @@
-
-#include "flywheel.hpp"
 #include "vex.h"
 
 using namespace vex;
@@ -20,8 +18,6 @@ class Flywheel {
 
 
 const float FLYWHEEL_GAIN = .01;
-
-const int FLYWHEEL_HIGH = 300;
 
 bool flywheelEnabled = false;
 
@@ -151,7 +147,7 @@ void _resetVariables()
 	flywheelTBH = 0;
 }
 
-void startFlywheel()
+void startFlywheel(const double FLYWHEEL_HIGH)
 {
 	_resetVariables();
 	flywheelEnabled = true;
@@ -165,6 +161,14 @@ void flywheelWaitUntilSettled()
 	{
 		wait(20,msec);
 	}
+}
+
+void fwstart(const double joe) {
+	startFlywheel(joe);
+}
+
+void fwstop(){
+	flywheelStop();
 }
 
 bool isFlywheelSettled()
