@@ -30,7 +30,7 @@ void opcontrol()
 		delta = finalTime - currTime;
 		printf("%d\n", delta);
 		flywheelStop();
-		wait(50000,msec);
+		wait(50,sec);
 	}
 	// startFlywheel();
 	while (true)

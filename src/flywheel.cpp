@@ -34,6 +34,15 @@ double flywheelIntegral = 0;
 int flywheelAccelStep = 4;
 int flywheelDeccelStep = 256;
 
+bool signbit(double bob) {
+	if(bob < 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 template <typename T>
 int sgn(T val)
 {
@@ -56,7 +65,7 @@ void _flywheelSlew(int target)
 	else
 		flywheelSlewSpeed = target;
 
-	flywheel.move(flywheelSlewSpeed);
+	flywheel.spin(forward, flywheelSlewSpeed,voltageUnits::mV);
 }
 
 void _TBHFlywheel()
@@ -64,8 +73,7 @@ void _TBHFlywheel()
 	flywheelCurrentVelocity = flywheel.get_actual_velocity();
 	flywheelError = flywheelTargetVelocity - flywheelCurrentVelocity;
 	flywheelOutput += FLYWHEEL_GAIN * flywheelError;
-	if (signbit(flywheelError) != signbit(flywheelPreviousError))
-	{
+	if (signbit(flywheelError) != signbit(flywheelPreviousError)) {
 		flywheelOutput = 0.5 * (flywheelOutput + flywheelTBH);
 		flywheelTBH = flywheelOutput;
 		flywheelPreviousError = flywheelError;
@@ -105,7 +113,7 @@ void flywheelTask(void *parameter)
 		else
 		{
 			flywheelSettled = false;
-			flywheel.move(0);
+			flywheel.spin(forward,0,voltageUnits::mV);
 		}
 		// printf("Vel=%.0f Out=%d Settled: %d Error: %.0f P=%.0f I= %.0f D= %.0f\n", flywheel.get_actual_velocity(), flywheelSlewSpeed, flywheelSettled, flywheelError, flywheelError * FLYWHEEL_kP, flywheelIntegral * FLYWHEEL_kI, flywheelDerivative * FLYWHEEL_kD);
 		wait(20,msec);
