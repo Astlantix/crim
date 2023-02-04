@@ -24,6 +24,9 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include "flywheel.cpp"
+#include "flywheel.hpp"
+#include "opcontrol.cpp"
 
 using namespace vex;
 

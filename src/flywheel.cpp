@@ -5,6 +5,20 @@
 
 
 
+class SettleUtil {
+  public:
+    bool isSettled(double error) {
+        return std::abs(error) < 1e-6;
+    }
+};
+
+class Flywheel {
+	public:
+		double get_actual_velocity() {
+			return 123.456;
+		}
+};
+
 
 const float FLYWHEEL_GAIN = .01;
 
@@ -49,8 +63,7 @@ int sgn(T val)
 	return (T(0) < val) - (val < T(0));
 }
 
-void _flywheelSlew(int target)
-{
+void _flywheelSlew(int target) {
 	int step;
 
 	if (abs(flywheelSlewSpeed) < abs(target))
@@ -68,8 +81,9 @@ void _flywheelSlew(int target)
 	flywheel.spin(forward, flywheelSlewSpeed,voltageUnits::mV);
 }
 
-void _TBHFlywheel()
-{
+void _TBHFlywheel() {
+	SettleUtil settleUtil;
+	Flywheel flywheel;
 	flywheelCurrentVelocity = flywheel.get_actual_velocity();
 	flywheelError = flywheelTargetVelocity - flywheelCurrentVelocity;
 	flywheelOutput += FLYWHEEL_GAIN * flywheelError;
@@ -82,8 +96,9 @@ void _TBHFlywheel()
 
 	flywheelSettled = settleUtil.isSettled(flywheelError);
 }
-void _PIDFLywheel()
-{
+void _PIDFLywheel() {
+	SettleUtil settleUtil;
+	Flywheel flywheel;
 	flywheelCurrentVelocity = flywheel.get_actual_velocity();
 	flywheelError = flywheelTargetVelocity - flywheelCurrentVelocity;
 	flywheelIntegral += flywheelError;
