@@ -19,7 +19,7 @@
 // Inertial             inertial      3               
 // Optical              optical       20              
 // indexer              digital_out   A               
-// Controller1          controller                    
+// gamers          controller                    
 // expansion            motor         2               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
@@ -55,9 +55,9 @@ int autoslct = 1;
 // drive code
 void dtcode(double y, double x) {
   double rightspeed =
-      (Controller1.Axis3.position() * -y) + (Controller1.Axis4.position() * x);
+      (gamers.Axis3.position() * -y) + (gamers.Axis4.position() * x);
   double leftspeed =
-      (Controller1.Axis3.position() * -y) - (Controller1.Axis4.position() * x);
+      (gamers.Axis3.position() * -y) - (gamers.Axis4.position() * x);
   lf.spin(forward, leftspeed, percent);
   lb.spin(forward, leftspeed, percent);
   rf.spin(forward, rightspeed, percent);
@@ -123,28 +123,28 @@ void turnleft(double x, double y, double z) {
   wait(z, msec);
 }
 void printing() {
-  Controller1.Screen.clearScreen();
-  Controller1.Screen.setCursor(1, 1);
+  gamers.Screen.clearScreen();
+  gamers.Screen.setCursor(1, 1);
   if (autoslct == 1) {
-    Controller1.Screen.print("sleeping");
+    gamers.Screen.print("sleeping");
   }
   if (autoslct == 2) {
-    Controller1.Screen.print("lg+r Left ");
+    gamers.Screen.print("lg+r Left ");
   }
   if (autoslct == 3) {
-    Controller1.Screen.print("lg+r Right");
+    gamers.Screen.print("lg+r Right");
   }
   if (autoslct == 4) {
-    Controller1.Screen.print("lg+r+hg Left");
+    gamers.Screen.print("lg+r+hg Left");
   }
   if (autoslct == 5) {
-    Controller1.Screen.print("lg+r+hg Right");
+    gamers.Screen.print("lg+r+hg Right");
   }
   if (autoslct == 6) {
-    Controller1.Screen.print("pl+r+hg Right");
+    gamers.Screen.print("pl+r+hg Right");
   }
   if (autoslct == 7) {
-    Controller1.Screen.print("pl+r+hg Left(dont use)");
+    gamers.Screen.print("pl+r+hg Left(dont use)");
   }
 }
 void autoplus() {
@@ -353,12 +353,12 @@ void autonomous(void) {
 
 void usercontrol(void) {
   indexer.set(true);
-  Controller1.Screen.print("sleeping");
-  Controller1.ButtonLeft.pressed(autominus);
-  Controller1.ButtonRight.pressed(autoplus);
+  gamers.Screen.print("sleeping");
+  gamers.ButtonLeft.pressed(autominus);
+  gamers.ButtonRight.pressed(autoplus);
   while (a) {
 
-    if (Controller1.ButtonA.pressing()) {
+    if (gamers.ButtonA.pressing()) {
       a = false;
     }
   }
@@ -368,16 +368,16 @@ void usercontrol(void) {
     // printing temp/speed
     // ..........................................................................
     int df = fly_wheel.velocity(rpm);
-    Controller1.Screen.clearScreen();
-    Controller1.Screen.setCursor(1, 1);
-    Controller1.Screen.print(df);
+    gamers.Screen.clearScreen();
+    gamers.Screen.setCursor(1, 1);
+    gamers.Screen.print(df);
     // ..........................................................................
     // drivetrain
     // ..........................................................................
     // changing between modes
-    if (Controller1.ButtonR1.pressing()) {
+    if (gamers.ButtonR1.pressing()) {
       dtslowmo = true;
-    } else if (Controller1.ButtonR2.pressing()) {
+    } else if (gamers.ButtonR2.pressing()) {
       dtslowmo = false;
     }
     // actual dt code
@@ -392,11 +392,11 @@ void usercontrol(void) {
     // ..........................................................................
     // intake/roller
     // ..........................................................................
-    if (Controller1.ButtonUp.pressing()) {
+    if (gamers.ButtonUp.pressing()) {
       roller.spin(forward, 100, percent);
-    } else if (Controller1.ButtonDown.pressing()) {
+    } else if (gamers.ButtonDown.pressing()) {
       roller.spin(reverse, 100, percent);
-    } else if (Controller1.ButtonLeft.pressing()) {
+    } else if (gamers.ButtonLeft.pressing()) {
       roller.stop(coast);
     }
 
@@ -411,7 +411,7 @@ void usercontrol(void) {
       fly_wheel.stop(coast);
     }
 
-    if (Controller1.ButtonA.pressing()) {
+    if (gamers.ButtonA.pressing()) {
       if (!latch) {
         toggle = !toggle;
         latch = true;
@@ -421,7 +421,7 @@ void usercontrol(void) {
     }
 
     // indexer
-    if (Controller1.ButtonL1.pressing()) {
+    if (gamers.ButtonL1.pressing()) {
       indexer.set(false);
     } else {
       indexer.set(true);
@@ -430,16 +430,16 @@ void usercontrol(void) {
     // ..........................................................................
     // expansion
     // ..........................................................................
-    if (Controller1.ButtonA.pressing() && Controller1.ButtonB.pressing() &&
-        Controller1.ButtonX.pressing() && Controller1.ButtonY.pressing()) {
+    if (gamers.ButtonA.pressing() && gamers.ButtonB.pressing() &&
+        gamers.ButtonX.pressing() && gamers.ButtonY.pressing()) {
       expansion.spin(forward, 50, percent);
-      Controller1.Screen.clearScreen();
-      Controller1.Screen.setCursor(1, 1);
-      Controller1.Screen.print("expansion fired");
+      gamers.Screen.clearScreen();
+      gamers.Screen.setCursor(1, 1);
+      gamers.Screen.print("expansion fired");
       fly_wheel.stop(coast);
     }
-    else if (Controller1.ButtonUp.pressing() && Controller1.ButtonDown.pressing() &&
-        Controller1.ButtonRight.pressing() && Controller1.ButtonLeft.pressing()) {
+    else if (gamers.ButtonUp.pressing() && gamers.ButtonDown.pressing() &&
+        gamers.ButtonRight.pressing() && gamers.ButtonLeft.pressing()) {
       expansion.spin(reverse, 50, percent);
       roller.stop(coast);
     }

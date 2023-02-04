@@ -19,7 +19,7 @@ motor_group fly_wheel = motor_group(fly_wheelMotorA, fly_wheelMotorB);
 inertial Inertial = inertial(PORT3);
 optical Optical = optical(PORT20);
 digital_out indexer = digital_out(Brain.ThreeWirePort.A);
-controller Controller1 = controller(primary);
+controller gamers = controller(primary);
 motor expansion = motor(PORT2, ratio36_1, false);
 
 // VEXcode generated functions

@@ -12,7 +12,7 @@ extern motor_group fly_wheel;
 extern inertial Inertial;
 extern optical Optical;
 extern digital_out indexer;
-extern controller Controller1;
+extern controller gamers;
 extern motor expansion;
 
 /**
