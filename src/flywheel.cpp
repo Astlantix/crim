@@ -96,7 +96,7 @@ void _TBHFlywheel() {
 
 	flywheelSettled = settleUtil.isSettled(flywheelError);
 }
-void _PIDFLywheel() {
+void _PIDFlywheel() {
 	SettleUtil settleUtil;
 	Flywheel flywheel;
 	flywheelCurrentVelocity = flywheel.get_actual_velocity();
@@ -122,8 +122,8 @@ void flywheelTask(void *parameter)
 
 		if (flywheelEnabled)
 		{
-			_TBHFlywheel();
-			// _PIDFLywheel();
+			_PIDFlywheel();
+			// _TBHFlywheel();
 		}
 		else
 		{
@@ -156,7 +156,6 @@ void startFlywheel(const double FLYWHEEL_HIGH)
 {
 	_resetVariables();
 	flywheelEnabled = true;
-	flywheelSlewSpeed = 0;
 	flywheelTargetVelocity = FLYWHEEL_HIGH;
 }
 
