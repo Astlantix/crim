@@ -77,7 +77,7 @@ void _flywheelSlew(int target) {
 	else
 		flywheelSlewSpeed = target;
 
-	flywheel.spin(forward, flywheelSlewSpeed,voltageUnits::mV);
+	flywheel.spin(forward, flywheelSlewSpeed,rpm);
 }
 
 void _TBHFlywheel() {
@@ -127,7 +127,7 @@ void flywheelTask(void *parameter)
 		else
 		{
 			flywheelSettled = false;
-			flywheel.spin(forward,0,voltageUnits::mV);
+			flywheel.spin(forward,0,rpm);
 		}
 		// printf("Vel=%.0f Out=%d Settled: %d Error: %.0f P=%.0f I= %.0f D= %.0f\n", flywheel.get_actual_velocity(), flywheelSlewSpeed, flywheelSettled, flywheelError, flywheelError * FLYWHEEL_kP, flywheelIntegral * FLYWHEEL_kI, flywheelDerivative * FLYWHEEL_kD);
 		wait(20,msec);

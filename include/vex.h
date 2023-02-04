@@ -23,6 +23,7 @@
 #include "v5_vcs.h"
 
 #include "robot-config.h"
+#include "flywheel.hpp"
 
 #define waitUntil(condition)                                                   \
   do {                                                                         \

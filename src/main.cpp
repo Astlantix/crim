@@ -24,6 +24,8 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+
+#include "flywheel.hpp"
 //#include "flywheel.cpp"
 //#include "flywheel.hpp"
 //#include "opcontrol.cpp"
@@ -372,9 +374,12 @@ void usercontrol(void) {
     // printing temp/speed
     // ..........................................................................
     int df = flywheel.velocity(rpm);
+    double goofygoober = flywheel.temperature(celsius);
     gamers.Screen.clearScreen();
     gamers.Screen.setCursor(1, 1);
     gamers.Screen.print(df);
+    gamers.Screen.setCursor(3,1);
+    gamers.Screen.print(goofygoober);
     // ..........................................................................
     // drivetrain
     // ..........................................................................
