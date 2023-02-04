@@ -11,6 +11,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <cmath>
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <cstring>
+#include <type_traits>
+#include <ctime>
 
 #include "v5.h"
 #include "v5_vcs.h"
