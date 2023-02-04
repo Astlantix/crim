@@ -262,7 +262,7 @@ void plrhgRight() {
   spinny.spin(forward, 100, percent);
   For(600, 50, 500);
   flywheel.spin(forward, 68, percent);
-  Left(283, 50, 0);
+  Left(273, 50, 0);
   waitUntil(flywheel.velocity(percent) > 67);
   shoot(500, 67, longdist);
   waitUntil(flywheel.velocity(percent) > 67);
