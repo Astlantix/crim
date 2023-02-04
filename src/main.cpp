@@ -10,15 +10,15 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// rf                   motor         12              
-// rb                   motor         15              
-// lf                   motor         16              
-// lb                   motor         17              
-// roller               motor         1               
-// fly_wheel            motor_group   18, 19          
+// fr                  motor         12              
+// br                   motor         15              
+// fl                   motor         16              
+// bl                   motor         17              
+// spinny               motor         1               
+// flywheel            motor_group   18, 19          
 // Inertial             inertial      3               
 // Optical              optical       20              
-// indexer              digital_out   A               
+// shooter              digital_out   A               
 // gamers          controller                    
 // expansion            motor         2               
 // ---- END VEXCODE CONFIGURED DEVICES ----
@@ -58,68 +58,68 @@ void dtcode(double y, double x) {
       (gamers.Axis3.position() * -y) + (gamers.Axis4.position() * x);
   double leftspeed =
       (gamers.Axis3.position() * -y) - (gamers.Axis4.position() * x);
-  lf.spin(forward, leftspeed, percent);
-  lb.spin(forward, leftspeed, percent);
-  rf.spin(forward, rightspeed, percent);
-  rb.spin(forward, rightspeed, percent);
+  fl.spin(forward, leftspeed, percent);
+  bl.spin(forward, leftspeed, percent);
+  fr.spin(forward, rightspeed, percent);
+  br.spin(forward, rightspeed, percent);
 }
 
 // ..........................................................................
 // auton functions
 // ..........................................................................
 void setV(double x) {
-  lf.setVelocity(x, percent);
-  lb.setVelocity(x, percent);
-  rf.setVelocity(x, percent);
-  rb.setVelocity(x, percent);
+  fl.setVelocity(x, percent);
+  bl.setVelocity(x, percent);
+  fr.setVelocity(x, percent);
+  br.setVelocity(x, percent);
 }
 void setcoast() {
-  lf.setStopping(coast);
-  lb.setStopping(coast);
-  rf.setStopping(coast);
-  rb.setStopping(coast);
+  fl.setStopping(coast);
+  bl.setStopping(coast);
+  fr.setStopping(coast);
+  br.setStopping(coast);
 }
 void gofor(double x, double y, double z) {
   setV(y);
-  lf.spinFor(forward, -x, degrees, false);
-  lb.spinFor(forward, -x, degrees, false);
-  rf.spinFor(forward, -x, degrees, false);
-  rb.spinFor(forward, -x, degrees);
+  fl.spinFor(forward, -x, degrees, false);
+  bl.spinFor(forward, -x, degrees, false);
+  fr.spinFor(forward, -x, degrees, false);
+  br.spinFor(forward, -x, degrees);
   wait(z, msec);
 }
 void goback(double x, double y, double z) {
   setV(y);
-  lf.spinFor(reverse, -x, degrees, false);
-  lb.spinFor(reverse, -x, degrees, false);
-  rf.spinFor(reverse, -x, degrees, false);
-  rb.spinFor(reverse, -x, degrees);
+  fl.spinFor(reverse, -x, degrees, false);
+  bl.spinFor(reverse, -x, degrees, false);
+  fr.spinFor(reverse, -x, degrees, false);
+  br.spinFor(reverse, -x, degrees);
   wait(z, msec);
 }
 void gobackangled(double x, double y, double z) {
-  lf.spin(reverse, -x, percent);
-  lb.spin(reverse, -x, percent);
-  rf.spin(reverse, -y, percent);
-  rb.spin(reverse, -y, percent);
+  fr.spin(reverse, -x, percent);
+  bl.spin(reverse, -x, percent);
+  fr.spin(reverse, -y, percent);
+  br.spin(reverse, -y, percent);
   wait(z, msec);
-  lf.stop();
-  lb.stop();
-  rf.stop();
-  rb.stop();
+  fl.stop();
+  bl.stop();
+  fr.stop();
+  br.stop();
 }
 void turnright(double x, double y, double z) {
   setV(y);
-  lf.spinFor(forward, -x, degrees, false);
-  lb.spinFor(forward, -x, degrees, false);
-  rf.spinFor(reverse, -x, degrees, false);
-  rb.spinFor(reverse, -x, degrees);
+  fl.spinFor(forward, -x, degrees, false);
+  bl.spinFor(forward, -x, degrees, false);
+  fr.spinFor(reverse, -x, degrees, false);
+  br.spinFor(reverse, -x, degrees);
   wait(z, msec);
 }
 void turnleft(double x, double y, double z) {
   setV(y);
-  lf.spinFor(reverse, -x, degrees, false);
-  lb.spinFor(reverse, -x, degrees, false);
-  rf.spinFor(forward, -x, degrees, false);
-  rb.spinFor(forward, -x, degrees);
+  fl.spinFor(reverse, -x, degrees, false);
+  bl.spinFor(reverse, -x, degrees, false);
+  fr.spinFor(forward, -x, degrees, false);
+  br.spinFor(forward, -x, degrees);
   wait(z, msec);
 }
 void printing() {
@@ -163,11 +163,11 @@ void autominus() {
 void sleeping() { wait(15, seconds); }
 
 void shoot(double y, double x, double z) {
-  indexer.set(false);
-  fly_wheel.setVelocity(x, percent);
+  shooter.set(false);
+  flywheel.setVelocity(x, percent);
   wait(100, msec);
-  indexer.set(true);
-  fly_wheel.setVelocity(z, percent);
+  shooter.set(true);
+  flywheel.setVelocity(z, percent);
   wait(y, msec);
 }
 
@@ -176,36 +176,36 @@ void lgrRight(bool x) {
   setcoast();
   // shooting 2 preloads into the low goal
   if (x) {
-    fly_wheel.spin(forward, lowgoal, percent);
+    flywheel.spin(forward, lowgoal, percent);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
   }
-  fly_wheel.stop(coast);
+  flywheel.stop(coast);
   // moving towards the roller and rolling
   gofor(600, 50, 0);
   turnright(270, 20, 0);
-  roller.spin(reverse, 100, percent);
+  spinny.spin(reverse, 100, percent);
   gofor(105, 20, 70);
-  roller.stop();
+  spinny.stop();
   goback(125, 50, 0);
 }
 // low goal and roller left
 void lgrLeft(double x) {
   setcoast();
   // move towards the roller and roll
-  roller.spin(reverse, 100, percent);
+  spinny.spin(reverse, 100, percent);
   gofor(48, 30, 70);
-  roller.stop();
+  spinny.stop();
   // moving away from roller and shoot 2 preloads
   goback(70, 30, 0);
   turnleft(360, 30, 0);
   if (x) {
-    fly_wheel.spin(forward, shortdist, percent);
+    flywheel.spin(forward, shortdist, percent);
     wait(1000, msec);
     shoot(500, shortdist, shortdist);
     shoot(500, shortdist, shortdist);
-    fly_wheel.stop(coast);
+    flywheel.stop(coast);
   }
 }
 
@@ -215,75 +215,75 @@ void lgrhgRight() {
   setcoast();
   lgrRight(false);
   turnright(243, 50, 0);
-  roller.spin(forward, 100, percent);
+  spinny.spin(forward, 100, percent);
   gofor(145, 100, 0);
   turnright(168, 30, 0);
-  fly_wheel.spin(forward, longdist + 3, percent);
+  flywheel.spin(forward, longdist + 3, percent);
   gofor(1500, 30, 0);
   turnleft(232.5, 50, 1000);
-  roller.stop();
-  waitUntil(fly_wheel.velocity(percent) > 66);
+  spinny.stop();
+  waitUntil(flywheel.velocity(percent) > 66);
   shoot(500, 65, longdist);
-  waitUntil(fly_wheel.velocity(percent) > 66);
+  waitUntil(flywheel.velocity(percent) > 66);
   shoot(300, 100, longdist);
-  waitUntil(fly_wheel.velocity(percent) > 66);
+  waitUntil(flywheel.velocity(percent) > 66);
   shoot(500, 100, longdist);
-  roller.stop();
-  fly_wheel.stop(coast);
+  spinny.stop();
+  flywheel.stop(coast);
 } // low goal and roller and high goal left
 void lgrhgLeft() {
   setcoast();
   double ldist = 69.5;
   lgrLeft(false);
   turnright(408, 30, 100);
-  roller.spin(forward, 100, percent);
+  spinny.spin(forward, 100, percent);
   gofor(550, 50, 250);
-  fly_wheel.spin(forward, ldist, percent);
+  flywheel.spin(forward, ldist, percent);
   gofor(1200 - 550, 10, 0);
   turnright(275, 20, 0);
-  waitUntil(fly_wheel.velocity(percent) > 67);
+  waitUntil(flywheel.velocity(percent) > 67);
   shoot(500, 70, ldist);
-  waitUntil(fly_wheel.velocity(percent) > 67);
+  waitUntil(flywheel.velocity(percent) > 67);
   shoot(300, 100, ldist);
-  waitUntil(fly_wheel.velocity(percent) > 67);
+  waitUntil(flywheel.velocity(percent) > 67);
   shoot(300, 100, ldist);
-  fly_wheel.stop(coast);
-  roller.stop();
+  flywheel.stop(coast);
+  spinny.stop();
 }
 //good final right side
 void plrhgRight() {
   setcoast();
   lgrRight(false);
   turnright(387, 50, 0);
-  roller.spin(forward, 100, percent);
+  spinny.spin(forward, 100, percent);
   gofor(600, 50, 500);
-  fly_wheel.spin(forward, 68, percent);
+  flywheel.spin(forward, 68, percent);
   turnleft(283, 50, 0);
-  waitUntil(fly_wheel.velocity(percent) > 67);
+  waitUntil(flywheel.velocity(percent) > 67);
   shoot(500, 67, longdist);
-  waitUntil(fly_wheel.velocity(percent) > 67);
+  waitUntil(flywheel.velocity(percent) > 67);
   shoot(300, 100, longdist);
-  waitUntil(fly_wheel.velocity(percent) > 67);
+  waitUntil(flywheel.velocity(percent) > 67);
   shoot(500, 100, longdist);
-  roller.stop();
-  fly_wheel.stop(coast);
+  spinny.stop();
+  flywheel.stop(coast);
 }
 //good final left side DONT TEST
 void plrhgLeft() {
   setcoast();
   lgrLeft(false);
-  roller.spin(forward, 100, percent);
+  spinny.spin(forward, 100, percent);
   gofor(601, 80, 500);
   turnright(280,30,500);
-  fly_wheel.spin(forward,75,percent);
-  waitUntil(fly_wheel.velocity(percent) >= 70);
+  flywheel.spin(forward,75,percent);
+  waitUntil(flywheel.velocity(percent) >= 70);
   shoot(500, 70, 68.5);
-  waitUntil(fly_wheel.velocity(percent) >= 70);
+  waitUntil(flywheel.velocity(percent) >= 70);
   shoot(300, 100, 69);
-  waitUntil(fly_wheel.velocity(percent) >= 69);
+  waitUntil(flywheel.velocity(percent) >= 69);
   shoot(300, 100, 68.5);
-  fly_wheel.stop(coast);
-  roller.stop();
+  flywheel.stop(coast);
+  spinny.stop();
 }
 
 
@@ -303,7 +303,7 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   setcoast();
-  indexer.set(true);
+  shooter.set(true);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -352,7 +352,7 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
-  indexer.set(true);
+  shooter.set(true);
   gamers.Screen.print("sleeping");
   gamers.ButtonLeft.pressed(autominus);
   gamers.ButtonRight.pressed(autoplus);
@@ -367,7 +367,7 @@ void usercontrol(void) {
     // ..........................................................................
     // printing temp/speed
     // ..........................................................................
-    int df = fly_wheel.velocity(rpm);
+    int df = flywheel.velocity(rpm);
     gamers.Screen.clearScreen();
     gamers.Screen.setCursor(1, 1);
     gamers.Screen.print(df);
@@ -393,11 +393,11 @@ void usercontrol(void) {
     // intake/roller
     // ..........................................................................
     if (gamers.ButtonUp.pressing()) {
-      roller.spin(forward, 100, percent);
+      spinny.spin(forward, 100, percent);
     } else if (gamers.ButtonDown.pressing()) {
-      roller.spin(reverse, 100, percent);
+      spinny.spin(reverse, 100, percent);
     } else if (gamers.ButtonLeft.pressing()) {
-      roller.stop(coast);
+      spinny.stop(coast);
     }
 
     // ..........................................................................
@@ -406,9 +406,9 @@ void usercontrol(void) {
     // shooter
 
     if (toggle) {
-      fly_wheel.spin(forward, shortdist, percent);
+      flywheel.spin(forward, shortdist, percent);
     } else {
-      fly_wheel.stop(coast);
+      flywheel.stop(coast);
     }
 
     if (gamers.ButtonA.pressing()) {
@@ -420,11 +420,11 @@ void usercontrol(void) {
       latch = false;
     }
 
-    // indexer
+    // shooter
     if (gamers.ButtonL1.pressing()) {
-      indexer.set(false);
+      shooter.set(false);
     } else {
-      indexer.set(true);
+      shooter.set(true);
     }
 
     // ..........................................................................
@@ -436,12 +436,12 @@ void usercontrol(void) {
       gamers.Screen.clearScreen();
       gamers.Screen.setCursor(1, 1);
       gamers.Screen.print("expansion fired");
-      fly_wheel.stop(coast);
+      flywheel.stop(coast);
     }
     else if (gamers.ButtonUp.pressing() && gamers.ButtonDown.pressing() &&
         gamers.ButtonRight.pressing() && gamers.ButtonLeft.pressing()) {
       expansion.spin(reverse, 50, percent);
-      roller.stop(coast);
+      spinny.stop(coast);
     }
      else {
       expansion.stop();

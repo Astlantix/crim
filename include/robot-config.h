@@ -3,15 +3,15 @@ using namespace vex;
 extern brain Brain;
 
 // VEXcode devices
-extern motor rf;
-extern motor rb;
-extern motor lf;
-extern motor lb;
-extern motor roller;
-extern motor_group fly_wheel;
+extern motor fr;
+extern motor br;
+extern motor fl;
+extern motor bl;
+extern motor spinny;
+extern motor_group flywheel;
 extern inertial Inertial;
 extern optical Optical;
-extern digital_out indexer;
+extern digital_out shooter;
 extern controller gamers;
 extern motor expansion;
 

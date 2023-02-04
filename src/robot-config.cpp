@@ -8,17 +8,17 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-motor rf = motor(PORT12, ratio18_1, true);
-motor rb = motor(PORT15, ratio18_1, true);
-motor lf = motor(PORT16, ratio18_1, false);
-motor lb = motor(PORT17, ratio18_1, false);
-motor roller = motor(PORT1, ratio18_1, true);
-motor fly_wheelMotorA = motor(PORT18, ratio6_1, false);
-motor fly_wheelMotorB = motor(PORT19, ratio6_1, true);
-motor_group fly_wheel = motor_group(fly_wheelMotorA, fly_wheelMotorB);
+motor fr = motor(PORT12, ratio18_1, true);
+motor br = motor(PORT15, ratio18_1, true);
+motor fl = motor(PORT16, ratio18_1, false);
+motor bl = motor(PORT17, ratio18_1, false);
+motor spinny = motor(PORT1, ratio18_1, true);
+motor flywheelMotorA = motor(PORT18, ratio6_1, false);
+motor flywheelMotorB = motor(PORT19, ratio6_1, true);
+motor_group flywheel = motor_group(flywheelMotorA, flywheelMotorB);
 inertial Inertial = inertial(PORT3);
 optical Optical = optical(PORT20);
-digital_out indexer = digital_out(Brain.ThreeWirePort.A);
+digital_out shooter = digital_out(Brain.ThreeWirePort.A);
 controller gamers = controller(primary);
 motor expansion = motor(PORT2, ratio36_1, false);
 
