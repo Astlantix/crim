@@ -79,7 +79,7 @@ void setcoast() {
   fr.setStopping(coast);
   br.setStopping(coast);
 }
-void gofor(double x, double y, double z) {
+void For(double x, double y, double z) {
   setV(y);
   fl.spinFor(forward, -x, degrees, false);
   bl.spinFor(forward, -x, degrees, false);
@@ -87,7 +87,7 @@ void gofor(double x, double y, double z) {
   br.spinFor(forward, -x, degrees);
   wait(z, msec);
 }
-void goback(double x, double y, double z) {
+void Rev(double x, double y, double z) {
   setV(y);
   fl.spinFor(reverse, -x, degrees, false);
   bl.spinFor(reverse, -x, degrees, false);
@@ -95,7 +95,7 @@ void goback(double x, double y, double z) {
   br.spinFor(reverse, -x, degrees);
   wait(z, msec);
 }
-void gobackangled(double x, double y, double z) {
+void Revang(double x, double y, double z) {
   fr.spin(reverse, -x, percent);
   bl.spin(reverse, -x, percent);
   fr.spin(reverse, -y, percent);
@@ -106,7 +106,7 @@ void gobackangled(double x, double y, double z) {
   fr.stop();
   br.stop();
 }
-void turnright(double x, double y, double z) {
+void Right(double x, double y, double z) {
   setV(y);
   fl.spinFor(forward, -x, degrees, false);
   bl.spinFor(forward, -x, degrees, false);
@@ -114,7 +114,7 @@ void turnright(double x, double y, double z) {
   br.spinFor(reverse, -x, degrees);
   wait(z, msec);
 }
-void turnleft(double x, double y, double z) {
+void Left(double x, double y, double z) {
   setV(y);
   fl.spinFor(reverse, -x, degrees, false);
   bl.spinFor(reverse, -x, degrees, false);
@@ -183,23 +183,23 @@ void lgrRight(bool x) {
   }
   flywheel.stop(coast);
   // moving towards the roller and rolling
-  gofor(600, 50, 0);
-  turnright(270, 20, 0);
+  For(600, 50, 0);
+  Right(270, 20, 0);
   spinny.spin(reverse, 100, percent);
-  gofor(105, 20, 70);
+  For(105, 20, 70);
   spinny.stop();
-  goback(125, 50, 0);
+  Rev(125, 50, 0);
 }
 // low goal and roller left
 void lgrLeft(double x) {
   setcoast();
   // move towards the roller and roll
   spinny.spin(reverse, 100, percent);
-  gofor(48, 30, 70);
+  For(48, 30, 70);
   spinny.stop();
   // moving away from roller and shoot 2 preloads
-  goback(70, 30, 0);
-  turnleft(360, 30, 0);
+  Rev(70, 30, 0);
+  Left(360, 30, 0);
   if (x) {
     flywheel.spin(forward, shortdist, percent);
     wait(1000, msec);
@@ -214,13 +214,13 @@ void lgrLeft(double x) {
 void lgrhgRight() {
   setcoast();
   lgrRight(false);
-  turnright(243, 50, 0);
+  Right(243, 50, 0);
   spinny.spin(forward, 100, percent);
-  gofor(145, 100, 0);
-  turnright(168, 30, 0);
+  For(145, 100, 0);
+  Right(168, 30, 0);
   flywheel.spin(forward, longdist + 3, percent);
-  gofor(1500, 30, 0);
-  turnleft(232.5, 50, 1000);
+  For(1500, 30, 0);
+  Left(232.5, 50, 1000);
   spinny.stop();
   waitUntil(flywheel.velocity(percent) > 66);
   shoot(500, 65, longdist);
@@ -235,12 +235,12 @@ void lgrhgLeft() {
   setcoast();
   double ldist = 69.5;
   lgrLeft(false);
-  turnright(408, 30, 100);
+  Right(408, 30, 100);
   spinny.spin(forward, 100, percent);
-  gofor(550, 50, 250);
+  For(550, 50, 250);
   flywheel.spin(forward, ldist, percent);
-  gofor(1200 - 550, 10, 0);
-  turnright(275, 20, 0);
+  For(1200 - 550, 10, 0);
+  Right(275, 20, 0);
   waitUntil(flywheel.velocity(percent) > 67);
   shoot(500, 70, ldist);
   waitUntil(flywheel.velocity(percent) > 67);
@@ -254,11 +254,11 @@ void lgrhgLeft() {
 void plrhgRight() {
   setcoast();
   lgrRight(false);
-  turnright(387, 50, 0);
+  Right(387, 50, 0);
   spinny.spin(forward, 100, percent);
-  gofor(600, 50, 500);
+  For(600, 50, 500);
   flywheel.spin(forward, 68, percent);
-  turnleft(283, 50, 0);
+  Left(283, 50, 0);
   waitUntil(flywheel.velocity(percent) > 67);
   shoot(500, 67, longdist);
   waitUntil(flywheel.velocity(percent) > 67);
@@ -273,8 +273,8 @@ void plrhgLeft() {
   setcoast();
   lgrLeft(false);
   spinny.spin(forward, 100, percent);
-  gofor(601, 80, 500);
-  turnright(280,30,500);
+  For(601, 80, 500);
+  Right(280,30,500);
   flywheel.spin(forward,75,percent);
   waitUntil(flywheel.velocity(percent) >= 70);
   shoot(500, 70, 68.5);
