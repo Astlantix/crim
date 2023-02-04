@@ -14,7 +14,7 @@ class SettleUtil {
 class Flywheel {
 	public:
 		double get_actual_velocity() {
-			return 123.456;
+			return flywheel.velocity(rpm);
 		}
 };
 
@@ -29,7 +29,7 @@ bool flywheelSettled = false;
 
 static int flywheelSlewSpeed = 0;
 
-const double FLYWHEEL_kP = .8;
+const double FLYWHEEL_kP = .2;
 const double FLYWHEEL_kI = 0.1;
 const double FLYWHEEL_kD = .1;
 
