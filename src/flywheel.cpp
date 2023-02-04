@@ -1,9 +1,8 @@
 
-#include "robot-config.h"
 #include "flywheel.hpp"
 #include "vex.h"
 
-
+using namespace vex;
 
 class SettleUtil {
   public:
