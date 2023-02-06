@@ -326,16 +326,16 @@ void plrhgLeft() {
 void proskils(){
   setcoast();
   //lgrRight(false);
-  Rev(100,50,50);
-  Right(100,50,50);
+  Rev(1000,50,50);
+  Right(50,50,0);
   flywheel.spin(forward, 55, percent);
   waitUntil(flywheel.velocity(percent) >= 55);
   shoot(1500, 55, 55);
   waitUntil(flywheel.velocity(percent) >= 55);
   shoot(500, 55, 55);
   flywheel.stop(coast);
-  Left(100,50,0);
-  For(100,50,0);
+  Left(50,50,0);
+  For(1000,50,0);
 } 
 
 
