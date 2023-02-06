@@ -25,7 +25,6 @@
 
 #include "vex.h"
 
-#include "flywheel.hpp"
 
 using namespace vex;
 
@@ -45,10 +44,10 @@ double degrees2turns(double degrees) { return 2.8 * degrees; }
 // ..........................................................................
 bool toggle = false;
 bool latch = false;
-double lowgoal = 600/30;
-double shortdist = 600/60;
+double lowgoal = 30;
+double shortdist = 60;
 
-double longdist = 600/67;
+double longdist = 67 ;
 // ..........................................................................
 // auton variables
 // ..........................................................................
@@ -67,6 +66,37 @@ void dtcode(double y, double x) {
 }
 
 
+/*double error = 0;
+double kp = 0.1;
+double ki = 0.1;
+double kd = 0.1;
+double totalError;
+double preverror = 0;
+double flyspeed;
+double targetspeed = 600/shortdist;
+double Power;
+bool ReadyShoot;
+bool maintainSpeed = true;*/
+
+/*int FlyPID(){
+  while(maintainSpeed){
+    flyspeed = flywheel.velocity(rpm); 
+    error = targetspeed - flyspeed;
+    if (error <= 0.1){
+      ReadyShoot = true;
+    }
+    else{
+      ReadyShoot = false;
+    }
+    Power += (error*kp + totalError * ki + (error - preverror) * kd)/12;
+    flywheel.spin(forward, Power, volt);
+    preverror = error;
+    totalError += error;
+    vex::task::sleep(20);
+
+  }
+  return 1;
+}*/
 // ..........................................................................
 // auton functions
 // ..........................................................................
@@ -167,7 +197,7 @@ void sleeping() { wait(15, seconds); }
 
 void shoot(double y, double x, double z) {
   shooter.set(false);
-  fwstart(600/x);
+  flywheel.spin(forward,x,percent);
   wait(100, msec);
   shooter.set(true);
   flywheel.setVelocity(z, percent);
@@ -179,7 +209,7 @@ void lgrRight(bool x) {
   setcoast();
   // shooting 2 preloads into the low goal
   if (x) {
-    fwstart(lowgoal);
+    flywheel.spin(forward, lowgoal, percent);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -204,11 +234,11 @@ void lgrLeft(double x) {
   Rev(70, 30, 0);
   Left(360, 30, 0);
   if (x) {
-    fwstart(shortdist);
+    flywheel.spin(forward,shortdist,percent);
     wait(1000, msec);
     shoot(500, shortdist, shortdist);
     shoot(500, shortdist, shortdist);
-    flywheelStop();
+    flywheel.stop(coast);
   }
 }
 
@@ -221,7 +251,7 @@ void lgrhgRight() {
   spinny.spin(forward, 100, percent);
   For(145, 100, 0);
   Right(168, 30, 0);
-  fwstart(longdist+18);
+  flywheel.spin(forward,longdist+18,percent);
   For(1500, 30, 0);
   Left(232.5, 50, 1000);
   spinny.stop();
@@ -241,7 +271,7 @@ void lgrhgLeft() {
   Right(408, 30, 100);
   spinny.spin(forward, 100, percent);
   For(550, 50, 250);
-  fwstart(ldist);
+  flywheel.spin(forward,ldist,percent);
   For(1200 - 550, 10, 0);
   Right(275, 20, 0);
   waitUntil(flywheel.velocity(percent) > 67);
@@ -250,7 +280,7 @@ void lgrhgLeft() {
   shoot(300, 100, ldist);
   waitUntil(flywheel.velocity(percent) > 67);
   shoot(300, 100, ldist);
-  flywheelStop();
+  flywheel.stop(coast);
   spinny.stop();
 }
 //good final right side
@@ -260,7 +290,7 @@ void plrhgRight() {
   Right(387, 50, 0);
   spinny.spin(forward, 100, percent);
   For(600, 50, 500);
-  fwstart(600/68);
+  flywheel.spin(forward,68,percent);
   Left(273, 50, 0);
   waitUntil(flywheel.velocity(percent) > 67);
   shoot(500, 67, longdist);
@@ -273,12 +303,12 @@ void plrhgRight() {
 }
 //good final left side DONT TEST
 void plrhgLeft() {
-  /*setcoast();
+  setcoast();
   lgrLeft(false);
   spinny.spin(forward, 100, percent);
   For(601, 80, 500);
   Right(280,30,500);
-  fwstart(600/75);
+  flywheel.spin(forward,75,percent);
   waitUntil(flywheel.velocity(percent) >= 70);
   shoot(500, 70, 68.5);
   waitUntil(flywheel.velocity(percent) >= 70);
@@ -286,8 +316,7 @@ void plrhgLeft() {
   waitUntil(flywheel.velocity(percent) >= 69);
   shoot(300, 100, 68.5);
   flywheel.stop(coast);
-  spinny.stop();*/
-  fwstart(360);
+  spinny.stop();
 }
 
 
@@ -371,7 +400,7 @@ void usercontrol(void) {
     // ..........................................................................
     // printing temp/speed
     // ..........................................................................
-    int df = flywheel.velocity(rpm);
+    int df = flywheel.velocity(percent);
     double goofygoober = flywheel.temperature(celsius);
     gamers.Screen.clearScreen();
     gamers.Screen.setCursor(1, 1);
@@ -413,11 +442,10 @@ void usercontrol(void) {
     // shooter
 
     if (toggle) {
-      //flywheel.spin(forward, shortdist, percent);
-      fwstart(shortdist);
+      flywheel.spin(forward, shortdist, percent);
+      
     } else {
-      //flywheel.stop(coast);
-      flywheelStop();
+      flywheel.stop(coast);
     }
 
     if (gamers.ButtonA.pressing()) {
@@ -467,7 +495,6 @@ int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
-
   // Run the pre-autonomous function.
   pre_auton();
 
