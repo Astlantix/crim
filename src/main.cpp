@@ -51,7 +51,7 @@ double longdist = 67 ;
 // ..........................................................................
 // auton variables
 // ..........................................................................
-int numofautons = 7;
+int numofautons = 8;
 int autoslct = 1;
 // drive code
 void dtcode(double y, double x) {
@@ -66,7 +66,7 @@ void dtcode(double y, double x) {
 }
 
 
-/*double error = 0;
+double error = 0;
 double kp = 0.1;
 double ki = 0.1;
 double kd = 0.1;
@@ -76,11 +76,11 @@ double flyspeed;
 double targetspeed = 600/shortdist;
 double Power;
 bool ReadyShoot;
-bool maintainSpeed = true;*/
+bool maintainSpeed = true;
 
-/*int FlyPID(){
+int FlyPID(){
   while(maintainSpeed){
-    flyspeed = flywheel.velocity(rpm); 
+    flyspeed = flywheel.velocity(percent); 
     error = targetspeed - flyspeed;
     if (error <= 0.1){
       ReadyShoot = true;
@@ -96,7 +96,7 @@ bool maintainSpeed = true;*/
 
   }
   return 1;
-}*/
+}
 // ..........................................................................
 // auton functions
 // ..........................................................................
@@ -178,6 +178,9 @@ void printing() {
   }
   if (autoslct == 7) {
     gamers.Screen.print("pl+r+hg Left(dont use)");
+  }
+  if (autoslct == 8) {
+    gamers.Screen.print("proskills");
   }
 }
 void autoplus() {
@@ -320,6 +323,22 @@ void plrhgLeft() {
 }
 
 
+void proskils(){
+  setcoast();
+  //lgrRight(false);
+  Rev(100,50,50);
+  Right(100,50,50);
+  flywheel.spin(forward, 55, percent);
+  waitUntil(flywheel.velocity(percent) >= 55);
+  shoot(1500, 55, 55);
+  waitUntil(flywheel.velocity(percent) >= 55);
+  shoot(500, 55, 55);
+  flywheel.stop(coast);
+  Left(100,50,0);
+  For(100,50,0);
+} 
+
+
 // define your global instances of motors and other devices here
 
 /*---------------------------------------------------------------------------*/
@@ -370,6 +389,9 @@ void autonomous(void) {
   }
   if (autoslct == 7) {
     plrhgLeft();
+  }
+  if(autoslct == 8){
+    proskils();
   }
   a = false;
 }
