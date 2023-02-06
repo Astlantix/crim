@@ -51,7 +51,7 @@ double longdist = 67 ;
 // ..........................................................................
 // auton variables
 // ..........................................................................
-int numofautons = 8;
+int numofautons = 7;
 int autoslct = 1;
 // drive code
 void dtcode(double y, double x) {
@@ -178,9 +178,6 @@ void printing() {
   }
   if (autoslct == 7) {
     gamers.Screen.print("pl+r+hg Left(dont use)");
-  }
-  if (autoslct == 8) {
-    gamers.Screen.print("proskills");
   }
 }
 void autoplus() {
@@ -323,20 +320,6 @@ void plrhgLeft() {
 }
 
 
-void proskils(){
-  setcoast();
-  //lgrRight(false);
-  Rev(1000,50,50);
-  Right(50,50,0);
-  flywheel.spin(forward, 55, percent);
-  waitUntil(flywheel.velocity(percent) >= 55);
-  shoot(1500, 55, 55);
-  waitUntil(flywheel.velocity(percent) >= 55);
-  shoot(500, 55, 55);
-  flywheel.stop(coast);
-  Left(50,50,0);
-  For(1000,50,0);
-} 
 
 
 // define your global instances of motors and other devices here
@@ -389,9 +372,6 @@ void autonomous(void) {
   }
   if (autoslct == 7) {
     plrhgLeft();
-  }
-  if(autoslct == 8){
-    proskils();
   }
   a = false;
 }
@@ -487,10 +467,10 @@ void usercontrol(void) {
     }
 
     // ..........................................................................
-    // expansion
+    //
     // ..........................................................................
-    if (gamers.ButtonA.pressing() && gamers.ButtonB.pressing() &&
-        gamers.ButtonX.pressing() && gamers.ButtonY.pressing()) {
+    if (gamers.ButtonL1.pressing() && gamers.ButtonL2.pressing() &&
+        gamers.ButtonR2.pressing() && gamers.ButtonR1.pressing()) {
       expansion.spin(forward, 50, percent);
       gamers.Screen.clearScreen();
       gamers.Screen.setCursor(1, 1);
