@@ -66,37 +66,7 @@ void dtcode(double y, double x) {
 }
 
 
-double error = 0;
-double kp = 0.1;
-double ki = 0.1;
-double kd = 0.1;
-double totalError;
-double preverror = 0;
-double flyspeed;
-double targetspeed = 600/shortdist;
-double Power;
-bool ReadyShoot;
-bool maintainSpeed = true;
 
-int FlyPID(){
-  while(maintainSpeed){
-    flyspeed = flywheel.velocity(percent); 
-    error = targetspeed - flyspeed;
-    if (error <= 0.1){
-      ReadyShoot = true;
-    }
-    else{
-      ReadyShoot = false;
-    }
-    Power += (error*kp + totalError * ki + (error - preverror) * kd)/12;
-    flywheel.spin(forward, Power, volt);
-    preverror = error;
-    totalError += error;
-    vex::task::sleep(20);
-
-  }
-  return 1;
-}
 // ..........................................................................
 // auton functions
 // ..........................................................................
