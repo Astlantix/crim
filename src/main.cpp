@@ -53,6 +53,69 @@ double longdist = 67 ;
 // ..........................................................................
 int numofautons = 7;
 int autoslct = 1;
+
+// my goofy flywheel pid
+/*void flypid(double target) {
+  double error = target - flywheel.velocity(percent);
+  double kP = 0.1;
+  double kI = 0.0001;
+  double kD = 0.0001;
+  double integral = 0;
+  double derivative = 0;
+  double lastError = 0;
+  double power = 0;
+  while (true) {
+    error = target - flywheel.velocity(percent);
+    integral = integral + error;
+    derivative = error - lastError;
+    power = (error * kP) + (integral * kI) + (derivative * kD);
+    flywheel.spin(forward, power, percent);
+    lastError = error;
+    wait(20, msec);
+  }
+}
+*/
+
+// fly pid by my favorite amogh gupta
+
+double fly_kp = 0.25; //increase speed
+double fly_ki = 0.3; //range of fluctuation
+double fly_kd = 0.00005; //fluctuations
+double speed_margin_pct = 0;
+bool flyescvar = false;
+double speed_margin = 0;
+double speed_volt = 0;
+
+void speed(double targspeedpct) {
+  double avgvolt = 0;
+  double preverror = 0;
+  double error = 0;
+  double errorsum = 0;
+  double derivative = 0;
+  double targspeedvolt = (targspeedpct/100)*12;
+  wait(10,msec);
+
+  while (!flyescvar) {
+    avgvolt = flywheel.voltage();
+    error = targspeedvolt - avgvolt;
+    derivative = preverror - error;
+    errorsum += error;
+    preverror = error;
+    speed_margin = fabs((error/targspeedvolt)*100);
+    speed_volt = error * fly_kp + errorsum * fly_ki + derivative * fly_kd;
+    wait(5,msec);
+
+    if (speed_margin <= speed_margin_pct) {
+      flyescvar = true;
+    }
+    else {
+      flywheel.spin(forward, speed_volt, volt);
+    }
+    wait(10,msec);
+  }
+}
+
+
 // drive code
 void dtcode(double y, double x) {
   double rightspeed =
