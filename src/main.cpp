@@ -481,9 +481,11 @@ void usercontrol(void) {
     // ..........................................................................
     if (gamers.ButtonUp.pressing()) {
       spinny.spin(forward, 100, percent);
-    } else if (gamers.ButtonDown.pressing()) {
+    } 
+    else if (gamers.ButtonDown.pressing()) {
       spinny.spin(reverse, 100, percent);
-    } else if (gamers.ButtonLeft.pressing()) {
+    } 
+    else if (gamers.ButtonLeft.pressing()) {
       spinny.stop(coast);
     }
 
@@ -495,7 +497,8 @@ void usercontrol(void) {
     if (toggle) {
       flywheel.spin(forward, shortdist, percent);
       
-    } else {
+    } 
+    else {
       flywheel.stop(coast);
     }
 
@@ -504,14 +507,16 @@ void usercontrol(void) {
         toggle = !toggle;
         latch = true;
       }
-    } else {
+    } 
+    else {
       latch = false;
     }
 
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
-    } else {
+    } 
+    else {
       shooter.set(true);
     }
 
