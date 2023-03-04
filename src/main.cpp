@@ -10,17 +10,19 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// fr                  motor         12              
-// br                   motor         15              
-// fl                   motor         16              
-// bl                   motor         17              
-// spinny               motor         1               
-// flywheel            motor_group   18, 19          
+// fr                   motor         4             
+// mr                   motor         11
+// br                   motor         2             
+// fl                   motor         7
+// ml                   motor         18       
+// bl                   motor         10        
+// spinny               motor         21               
+// flywheel             motor         1          
 // Inertial             inertial      3               
 // Optical              optical       20              
 // shooter              digital_out   A               
-// gamers          controller                    
-// expansion            digital_out   2               
+// gamers               controller                    
+// expansion            digital_out   B               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
