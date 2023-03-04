@@ -5,8 +5,10 @@ extern brain Brain;
 
 // VEXcode devices
 extern motor fr;
+extern motor mr;
 extern motor br;
 extern motor fl;
+extern motor ml;
 extern motor bl;
 extern motor spinny;
 extern motor_group flywheel;
