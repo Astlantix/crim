@@ -8,14 +8,14 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-motor fr = motor(PORT12, ratio18_1, true);
-motor mr = motor(PORT19, ratio18_1, true);
-motor br = motor(PORT15, ratio18_1, true);
-motor fl = motor(PORT7, ratio18_1, true);
-motor ml = motor(PORT18, ratio18_1, true);
-motor bl = motor(PORT10, ratio18_1, true);
-motor spinny = motor(PORT1, ratio18_1, true);
-motor flywheel = motor(PORT1, ratio18_1, false);
+motor fr = motor(PORT4, ratio18_1, false); //good
+motor mr = motor(PORT11, ratio18_1, false); //good
+motor br = motor(PORT2, ratio18_1, false); //good
+motor fl = motor(PORT7, ratio18_1, true); //good
+motor ml = motor(PORT18, ratio18_1, true); //good
+motor bl = motor(PORT10, ratio18_1, true); //good
+motor spinny = motor(PORT21, ratio18_1, true); //good
+motor flywheel = motor(PORT1, ratio18_1, false); //good
 inertial Inertial = inertial(PORT3);
 optical Optical = optical(PORT20);
 digital_out shooter = digital_out(Brain.ThreeWirePort.A);
