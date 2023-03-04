@@ -16,7 +16,7 @@ extern inertial Inertial;
 extern optical Optical;
 extern digital_out shooter;
 extern controller gamers;
-extern motor expansion;
+extern digital_out expansion;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

@@ -20,9 +20,9 @@
 // Optical              optical       20              
 // shooter              digital_out   A               
 // gamers          controller                    
-// expansion            motor         2               
+// expansion            digital_out   2               
 // ---- END VEXCODE CONFIGURED DEVICES ----
-//yay
+
 #include "vex.h"
 
 
@@ -504,20 +504,21 @@ void usercontrol(void) {
     // ..........................................................................
     if (gamers.ButtonL1.pressing() && gamers.ButtonL2.pressing() &&
         gamers.ButtonR2.pressing() && gamers.ButtonR1.pressing()) {
-      expansion.spin(forward, 50, percent);
+      expansion.set(false);
+      wait(5,msec);
       gamers.Screen.clearScreen();
       gamers.Screen.setCursor(1, 1);
       gamers.Screen.print("expansion fired");
       flywheel.stop(coast);
     }
-    else if (gamers.ButtonUp.pressing() && gamers.ButtonDown.pressing() &&
+   /* else if (gamers.ButtonUp.pressing() && gamers.ButtonDown.pressing() &&
         gamers.ButtonRight.pressing() && gamers.ButtonLeft.pressing()) {
       expansion.spin(reverse, 50, percent);
       spinny.stop(coast);
     }
      else {
       expansion.stop();
-    }
+    }*/
     wait(20, msec);
 
   } // end of while true
