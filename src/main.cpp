@@ -121,11 +121,11 @@ void dtcode(double y, double x) {
   double rightspeed = (gamers.Axis3.position() * -y) + (gamers.Axis4.position() * x);
   double leftspeed = (gamers.Axis3.position() * -y) - (gamers.Axis4.position() * x);
   fl.spin(forward, leftspeed, percent);
-  bl.spin(forward, leftspeed, percent);
   ml.spin(forward,leftspeed,percent);
+  bl.spin(forward, leftspeed, percent);
   fr.spin(forward, rightspeed, percent);
-  br.spin(forward, rightspeed, percent);
   mr.spin(forward,rightspeed,percent);
+  br.spin(forward, rightspeed, percent);
 }
 
 
@@ -135,36 +135,46 @@ void dtcode(double y, double x) {
 // ..........................................................................
 void setV(double x) {
   fl.setVelocity(x, percent);
+  ml.setVelocity(x,percent);
   bl.setVelocity(x, percent);
   fr.setVelocity(x, percent);
+  mr.setVelocity(x,percent);
   br.setVelocity(x, percent);
 }
 void setcoast() {
   fl.setStopping(coast);
+  ml.setStopping(coast);
   bl.setStopping(coast);
   fr.setStopping(coast);
+  mr.setStopping(coast);
   br.setStopping(coast);
 }
 void For(double x, double y, double z) {
   setV(y);
   fl.spinFor(forward, -x, degrees, false);
+  ml.spinFor(forward, -x, degrees, false);
   bl.spinFor(forward, -x, degrees, false);
   fr.spinFor(forward, -x, degrees, false);
+  mr.spinFor(forward, -x, degrees, false);
   br.spinFor(forward, -x, degrees);
   wait(z, msec);
 }
 void Rev(double x, double y, double z) {
   setV(y);
   fl.spinFor(reverse, -x, degrees, false);
+  ml.spinFor(reverse, -x, degrees, false);
   bl.spinFor(reverse, -x, degrees, false);
   fr.spinFor(reverse, -x, degrees, false);
+  mr.spinFor(reverse, -x, degrees, false);
   br.spinFor(reverse, -x, degrees);
   wait(z, msec);
 }
 void Revang(double x, double y, double z) {
   fr.spin(reverse, -x, percent);
+  mr.spin(reverse, -x, percent);
   bl.spin(reverse, -x, percent);
   fr.spin(reverse, -y, percent);
+  mr.spin(reverse, -y, percent);
   br.spin(reverse, -y, percent);
   wait(z, msec);
   fl.stop();
@@ -175,16 +185,20 @@ void Revang(double x, double y, double z) {
 void Right(double x, double y, double z) {
   setV(y);
   fl.spinFor(forward, -x, degrees, false);
+  ml.spinFor(forward, -x, degrees, false);
   bl.spinFor(forward, -x, degrees, false);
   fr.spinFor(reverse, -x, degrees, false);
+  mr.spinFor(reverse, -x, degrees, false);
   br.spinFor(reverse, -x, degrees);
   wait(z, msec);
 }
 void Left(double x, double y, double z) {
   setV(y);
   fl.spinFor(reverse, -x, degrees, false);
+  ml.spinFor(reverse, -x, degrees, false);
   bl.spinFor(reverse, -x, degrees, false);
   fr.spinFor(forward, -x, degrees, false);
+  mr.spinFor(forward, -x, degrees, false);
   br.spinFor(forward, -x, degrees);
   wait(z, msec);
 }
