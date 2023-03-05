@@ -276,9 +276,9 @@ void lgrRight(bool x) {
     x = false;
   }
   flywheel.stop(coast);
-  For(200,20,20);
+  For(400,20,20);
   spinny.spin(reverse, 65, percent);
-  Left(200, 20, 0);
+  Right(200, 20, 0);
   For(125, 20, 90);
   spinny.stop();
 }
@@ -305,26 +305,36 @@ void lgrLeft(bool x) {
 // low goal and roller and high goal right
 void lgrhgRight() {
   lgrRight(false);
-  flypid(100);
   Rev(150,20,0);
   Left(225, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,50,1000);
   Right(250, 20, 0);
   spinny.stop();
-  flypid(100);
-  shoot(500,100,100);
-  shoot(500,100,100);
+  speed(100);
+  wait(1000,msec);
+  shooter.set(false);
+  wait(100, msec);
+  shooter.set(true);
+  wait(500, msec);
+  shooter.set(false);
+  wait(100, msec);
+  shooter.set(true);
+  wait(500, msec);
+  shooter.set(false);
+  wait(100, msec);
+  shooter.set(true);
+  wait(500, msec);
   flywheel.stop(coast);
 }
 // low goal and roller and high goal left
 void lgrhgLeft() {
   lgrLeft(false);
-  Rev(100,20,0);
+  Rev(70,20,0);
   Left(250, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,100,1000);
-  Right(280, 20, 100);
+  Right(240, 20, 100);
   spinny.stop();
   speed(100);
   wait(1000,msec);
@@ -439,7 +449,7 @@ void usercontrol(void) {
     }
     // actual dt code
     if (dtslowmo) {
-      dtcode(-0.1, -0.1);
+      dtcode(-0.7, -0.1);
     }
 
     else {
