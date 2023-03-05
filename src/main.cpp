@@ -453,7 +453,7 @@ void usercontrol(void) {
     }
 
     else {
-      dtcode(-1, -0.70);
+      dtcode(-1, -0.60);
     }
 
     // ..........................................................................
@@ -475,7 +475,7 @@ void usercontrol(void) {
     // shooter
 
     if (toggle) {
-      flypid(100);
+      flypid(80);
     } 
     else {
       flywheel.stop(coast);
