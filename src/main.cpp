@@ -53,7 +53,7 @@ double longdist = 67 ;
 // ..........................................................................
 // auton variables
 // ..........................................................................
-int numofautons = 7;
+int numofautons = 5;
 int autoslct = 1;
 
 // my goofy flywheel pid
@@ -242,12 +242,6 @@ void printing() {
   if (autoslct == 5) {
     gamers.Screen.print("lg+r+hg Right");
   }
-  if (autoslct == 6) {
-    gamers.Screen.print("pl+r+hg Right");
-  }
-  if (autoslct == 7) {
-    gamers.Screen.print("pl+r+hg Left(dont use)");
-  }
 }
 void autoplus() {
   autoslct += 1;
@@ -298,13 +292,14 @@ void lgrLeft(bool x) {
     shoot(500, lowgoal, lowgoal);
     x = false;
   }
-  flywheel.stop(coast);
-  For(100,20,20);
-  spinny.spin(reverse, 65, percent);
-  Left(200, 20, 0);
-  For(125, 20, 90);
-  spinny.stop();
-}
+  
+    flywheel.stop(coast);
+    For(150,20,20);
+    spinny.spin(reverse, 65, percent);
+    Left(200, 20, 0);
+    For(140, 20, 90);
+    spinny.stop();
+  }
 
 
 // low goal and roller and high goal right
@@ -312,7 +307,7 @@ void lgrhgRight() {
   lgrRight(false);
   flypid(100);
   Rev(150,20,0);
-  Left(240, 50, 0);
+  Left(225, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,50,1000);
   Right(250, 20, 0);
@@ -321,56 +316,33 @@ void lgrhgRight() {
   shoot(500,100,100);
   shoot(500,100,100);
   flywheel.stop(coast);
-} // low goal and roller and high goal left
+}
+// low goal and roller and high goal left
 void lgrhgLeft() {
   lgrLeft(false);
-  flypid(100);
-  Rev(150,20,0);
-  Left(240, 50, 0);
+  Rev(100,20,0);
+  Left(250, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,100,1000);
-  Right(250, 20, 0);
+  Right(280, 20, 100);
   spinny.stop();
-  flypid(100);
-  shoot(500,100,100);
-  shoot(500,100,100);
+  speed(100);
+  wait(1000,msec);
+  shooter.set(false);
+  wait(100, msec);
+  shooter.set(true);
+  wait(500, msec);
+  shooter.set(false);
+  wait(100, msec);
+  shooter.set(true);
+  wait(500, msec);
+  shooter.set(false);
+  wait(100, msec);
+  shooter.set(true);
+  wait(500, msec);
   flywheel.stop(coast);
 }
-//good final right side
-void plrhgRight() {
-  setcoast();
-  lgrRight(false);
-  Right(387, 50, 0);
-  spinny.spin(forward, 100, percent);
-  For(750, 50, 4000);
-  flywheel.spin(forward,68,percent);
-  Left(1000, 50, 0);
-  waitUntil(flywheel.velocity(percent) > 67);
-  shoot(500, 67, longdist);
-  waitUntil(flywheel.velocity(percent) > 67);
-  shoot(300, 100, longdist);
-  waitUntil(flywheel.velocity(percent) > 67);
-  shoot(500, 100, longdist);
-  spinny.stop();
-  flywheel.stop(coast);
-}
-//good final left side DONT TEST
-void plrhgLeft() {
-  setcoast();
-  lgrLeft(false);
-  spinny.spin(forward, 100, percent);
-  For(601, 80, 500);
-  Right(280,30,500);
-  flywheel.spin(forward,75,percent);
-  waitUntil(flywheel.velocity(percent) >= 70);
-  shoot(500, 70, 68.5);
-  waitUntil(flywheel.velocity(percent) >= 70);
-  shoot(300, 100, 69);
-  waitUntil(flywheel.velocity(percent) >= 69);
-  shoot(300, 100, 68.5);
-  flywheel.stop(coast);
-  spinny.stop();
-}
+
 
 
 
@@ -419,12 +391,6 @@ void autonomous(void) {
   }
   if (autoslct == 5) {
     lgrhgRight();
-  }
-  if (autoslct == 6) {
-    plrhgRight();
-  }
-  if (autoslct == 7) {
-    plrhgLeft();
   }
   a = false;
 }
