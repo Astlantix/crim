@@ -449,7 +449,7 @@ void usercontrol(void) {
     }
     // actual dt code
     if (dtslowmo) {
-      dtcode(-0.7, -0.1);
+      dtcode(-0.1, -0.1);
     }
 
     else {
