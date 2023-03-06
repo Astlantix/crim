@@ -294,7 +294,7 @@ void lgrLeft(bool x) {
   }
   
     flywheel.stop(coast);
-    For(150,20,20);
+    //For(150,20,20);
     spinny.spin(reverse, 65, percent);
     Left(200, 20, 0);
     For(140, 20, 90);
@@ -331,23 +331,23 @@ void lgrhgRight() {
 void lgrhgLeft() {
   lgrLeft(false);
   Rev(70,20,0);
-  Left(250, 50, 0);
+  Left(280, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,100,1000);
   Right(240, 20, 100);
   spinny.stop();
   speed(100);
-  wait(1000,msec);
+  wait(500,msec);
   shooter.set(false);
-  wait(100, msec);
+  wait(200, msec);
   shooter.set(true);
   wait(500, msec);
   shooter.set(false);
-  wait(100, msec);
+  wait(200, msec);
   shooter.set(true);
   wait(500, msec);
   shooter.set(false);
-  wait(100, msec);
+  wait(200, msec);
   shooter.set(true);
   wait(500, msec);
   flywheel.stop(coast);

@@ -1,5 +1,11 @@
 {
     "files.associations": {
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "queue": "cpp",
+        "vector": "cpp",
+        "xtree": "cpp"
     }
 }
