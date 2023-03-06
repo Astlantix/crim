@@ -281,6 +281,7 @@ void lgrRight(bool x) {
   Right(200, 20, 0);
   For(125, 20, 90);
   spinny.stop();
+  Rev(10,0,0);
 }
 // low goal and roller left
 void lgrLeft(bool x) {
