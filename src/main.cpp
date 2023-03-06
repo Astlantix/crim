@@ -307,13 +307,13 @@ void lgrLeft(bool x) {
 void lgrhgRight() {
   lgrRight(false);
   Rev(150,20,0);
-  Left(225, 50, 0);
+  Right(260, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,50,1000);
-  Right(250, 20, 0);
+  Left(200, 20, 0);
   spinny.stop();
   speed(100);
-  wait(1000,msec);
+  wait(900,msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
