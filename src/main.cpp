@@ -256,7 +256,9 @@ void autominus() {
   printing();
 }
 
-void sleeping() { wait(15, seconds); }
+void sleeping() {
+  wait(15, seconds); 
+}
 
 void shoot(double y, double x, double z) {
   shooter.set(false);
@@ -300,7 +302,7 @@ void lgrLeft(bool x) {
     Left(200, 20, 0);
     For(140, 20, 90);
     spinny.stop();
-  }
+}
 
 
 // low goal and roller and high goal right
