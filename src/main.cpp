@@ -660,7 +660,9 @@ void usercontrol(void) {
     else {
       latch2 = false;
     }
-
+    if(toggle || toggle2){
+      gamers.rumble(rumblePulse);
+    }
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
