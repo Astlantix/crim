@@ -600,14 +600,14 @@ void usercontrol(void) {
     // changing between modes
     if (gamers.ButtonR1.pressing()) {
       dtslowmo = true;
-    } else if (gamers.ButtonR2.pressing()) {
+    } 
+    else if (gamers.ButtonR2.pressing()) {
       dtslowmo = false;
     }
     // actual dt code
     if (dtslowmo) {
       dtcode(0.1, 0.1);
     }
-
     else {
       dtcode(1, 0.47);
     }
