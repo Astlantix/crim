@@ -20,7 +20,7 @@ inertial Inertial = inertial(PORT3);
 optical Optical = optical(PORT20);
 digital_out shooter = digital_out(Brain.ThreeWirePort.A);
 controller gamers = controller(primary);
-digital_out expansion = digital_out(Brain.ThreeWirePort.B);
+digital_out expansion = digital_out(Brain.ThreeWirePort.H);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
