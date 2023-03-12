@@ -377,6 +377,7 @@ void pre_auton(void) {
   vexcodeInit();
   setcoast();
   shooter.set(true);
+  expansion.set(false);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -418,15 +419,16 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 void autonslctscrn() {
-  gamers.Screen.print("sleeping");
-  gamers.ButtonLeft.pressed(autominus);
-  gamers.ButtonRight.pressed(autoplus);
+
 }
   int df = flywheel.velocity(percent);
   double goofygoober = flywheel.temperature(celsius);
 void usercontrol(void) {
+  gamers.Screen.print("sleeping");
+  gamers.ButtonLeft.pressed(autominus);
+  gamers.ButtonRight.pressed(autoplus);
   while(a){
-    autonslctscrn();
+ 
     if(gamers.ButtonA.pressing()){
       a = false;
     }
@@ -507,12 +509,11 @@ void usercontrol(void) {
     // ..........................................................................
     if (gamers.ButtonL1.pressing() && gamers.ButtonL2.pressing() &&
         gamers.ButtonR2.pressing() && gamers.ButtonR1.pressing()) {
-      expansion.set(false);
+      expansion.set(true);
       wait(5,msec);
       gamers.Screen.clearScreen();
       gamers.Screen.setCursor(1, 1);
       gamers.Screen.print("expansion fired");
-      flywheel.stop(coast);
     }
    /* else if (gamers.ButtonUp.pressing() && gamers.ButtonDown.pressing() &&
         gamers.ButtonRight.pressing() && gamers.ButtonLeft.pressing()) {
