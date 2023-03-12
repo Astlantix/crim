@@ -189,6 +189,8 @@ double degrees2turns(double degrees) { return 2.8 * degrees; }
 // ..........................................................................
 bool toggle = false;
 bool latch = false;
+bool latch2 = false;
+bool toggle2 = false;
 double lowgoal = 30;
 double shortdist = 60;
 
@@ -632,6 +634,9 @@ void usercontrol(void) {
 
     if (toggle) {
       flypid(75);
+    }
+    else if (toggle2) {
+      flypid(85);
     } 
     else {
       flywheel.stop(coast);
@@ -645,6 +650,15 @@ void usercontrol(void) {
     } 
     else {
       latch = false;
+    }
+    if(gamers.ButtonB.pressing()) {
+      if(!latch2) {
+        toggle2 = !toggle2;
+        latch2 = true;
+      }
+    }
+    else {
+      latch2 = false;
     }
 
     // shooter
