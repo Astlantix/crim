@@ -455,7 +455,7 @@ void lgrhgRight() {
   Right(260, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,50,1000);
-  Left(190, 20, 0);
+  Left(1750, 20, 0);
   spinny.stop();
   flywheel.spin(forward,100,pct);
   //speed(100);
