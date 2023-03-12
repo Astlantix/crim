@@ -31,7 +31,8 @@
 using namespace vex;
 
 //Odometry
-#define Pi 3.14159265358979323846
+
+/*#define Pi 3.14159265358979323846
 #define Wheel_Diam 3
 #define SL 5 //distance from tracking center to middle of left wheel
 #define SR 5 //distance from tracking center to middle of right wheel
@@ -40,10 +41,12 @@ using namespace vex;
 #define tpr 360  //Degrees per single encoder rotation
 #define fieldscale 1.66548042705 //scale of the field in inches per pixel
 double DeltaL,DeltaR,DeltaB,currentL,currentR,PreviousL,PreviousR,DeltaTheta,X,Y,Theta,DeltaXSide,DeltaYSide,SideChord,OdomHeading;
+
+*/
 /*---------------------------------------------------------------------------*/
 /*                            Odometry Functions                             */
 /*---------------------------------------------------------------------------*/
-void TrackPOS() {
+/*void TrackPOS() {
 // 2 cases could be occuring in odometry
 // 1: Going in a straight line
 // 2: Going in an arc motion
@@ -92,7 +95,7 @@ void TrackPOS() {
   DeltaTheta = 0;
   /*--------------------GRAPHICS--------------------*/
   //Coordinates for each section of text
-  int textadjustvalue = 55;
+  /*int textadjustvalue = 55;
   int rowadjust = 39;
 
   //Sets graphical things for our display 
@@ -166,7 +169,7 @@ void TrackPOS() {
   //angle is the angle the robot is facing, which in our case is Theta
   //(x1,y1, x1 + line_length*cos(angle),y1 + line_length*sin(angle)) = (x1,y1,x2,y2)
   Brain.Screen.drawLine(xfieldvalue, yfieldvalue, xfieldvalue+cos(-Theta-(Pi/2))*15, yfieldvalue+ sin(-Theta-(Pi/2)) *15);
-}
+}*/
 
 
 
@@ -411,7 +414,7 @@ void shoot(double y, double x, double z) {
 void lgrRight(bool x) {
   setcoast();
   if(x){
-    speed(50);
+    speed(52);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -429,7 +432,7 @@ void lgrRight(bool x) {
 void lgrLeft(bool x) {
   setcoast();
   if(x){
-    speed(50);
+    speed(51);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -452,12 +455,15 @@ void lgrhgRight() {
   Right(260, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,50,1000);
-  Left(200, 20, 0);
+  Left(190, 20, 0);
   spinny.stop();
-  speed(100);
-  wait(900,msec);
+  flywheel.spin(forward,100,pct);
+  //speed(100);
+  For(1,20,20);
+  waitUntil(flywheel.velocity(percent) >= 90);
+  wait(500,msec);
   shooter.set(false);
-  wait(100, msec);
+  wait(300, msec);
   shooter.set(true);
   wait(500, msec);
   shooter.set(false);
@@ -518,11 +524,11 @@ void pre_auton(void) {
   setcoast();
   shooter.set(true);
   expansion.set(false);
-  Brain.resetTimer();
+  //Brain.resetTimer();
 
   //SET VALUES FOR INITIAL ROBOT POSITION
-  X = 0;
-  Y = 0;
+  //X = 0;
+  //Y = 0;
 }
 
 
@@ -577,8 +583,8 @@ void usercontrol(void) {
     }
   }
   while (!a) {
-    TrackPOS();
-    Brain.Screen.render(); //push data to the LCD all at once to prevent image flickering
+    //TrackPOS();
+    //Brain.Screen.render(); //push data to the LCD all at once to prevent image flickering
     // ..........................................................................
     // printing temp/speed
     // ..........................................................................
