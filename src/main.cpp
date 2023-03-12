@@ -417,25 +417,25 @@ void autonomous(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
-
-void usercontrol(void) {
-  shooter.set(true);
+void autonslctscrn() {
   gamers.Screen.print("sleeping");
   gamers.ButtonLeft.pressed(autominus);
   gamers.ButtonRight.pressed(autoplus);
-  while (a) {
-
-    if (gamers.ButtonA.pressing()) {
+}
+  int df = flywheel.velocity(percent);
+  double goofygoober = flywheel.temperature(celsius);
+void usercontrol(void) {
+  while(a){
+    autonslctscrn();
+    if(gamers.ButtonA.pressing()){
       a = false;
     }
   }
-  wait(1, sec);
   while (!a) {
     // ..........................................................................
     // printing temp/speed
     // ..........................................................................
-    int df = flywheel.velocity(percent);
-    double goofygoober = flywheel.temperature(celsius);
+
     gamers.Screen.clearScreen();
     gamers.Screen.setCursor(1, 1);
     gamers.Screen.print(df);
