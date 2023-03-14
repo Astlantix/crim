@@ -30,152 +30,18 @@
 
 using namespace vex;
 
-//Odometry
-
-/*#define Pi 3.14159265358979323846
-#define Wheel_Diam 3
-#define SL 5 //distance from tracking center to middle of left wheel
-#define SR 5 //distance from tracking center to middle of right wheel
-#define SS 7.75 //distance from tracking center to middle of the tracking wheel
-#define WheelDiam 4.125 //diameter of all the wheels being used for tracking
-#define tpr 360  //Degrees per single encoder rotation
-#define fieldscale 1.66548042705 //scale of the field in inches per pixel
-double DeltaL,DeltaR,DeltaB,currentL,currentR,PreviousL,PreviousR,DeltaTheta,X,Y,Theta,DeltaXSide,DeltaYSide,SideChord,OdomHeading;
-
-*/
-/*---------------------------------------------------------------------------*/
-/*                            Odometry Functions                             */
-/*---------------------------------------------------------------------------*/
-/*void TrackPOS() {
-// 2 cases could be occuring in odometry
-// 1: Going in a straight line
-// 2: Going in an arc motion
-// If the bot is on an angle and going straight the displacement would be linear at angle Theta, meaning a right triangle is formed (Trig ratios to calc movement)
-// Since it is a linear motion, the Left and right will move the same amount so we can just pick a side and do our movement calculation
-// Since this calculation is working based of very infinitely small arcs, the displacement of the robot will be a chord
-// Below it Averages the Left and Right integrated motor encoders since we don't have encoders yet
-  currentR = (fr.position(degrees) + br.position(degrees)) / 2;
-  currentL = (fl.position(degrees) + bl.position(degrees)) / 2;
-
-  //Creates variables for change in each side info in inches (12.9590697 is circumference of wheel)
-  DeltaL = ((currentL - PreviousL) * 12.9590697) / tpr;
-  DeltaR = ((currentR - PreviousR) * 12.9590697) / tpr;
-  //DeltaB = ((currentB - PreviousB) * 12.9590697) / tpr;
-
-  //Determines the change in angle of the robot using the rotational change in each side
-  DeltaTheta = (DeltaR - DeltaL) / (SL + SR);
-
-  //Creates an if/else statement to prevent NaN values from appearing and causing issues with calculation
-  if(DeltaTheta == 0) {  //If there is no change in angle
-    X += DeltaL * sin (Theta);
-    Y += DeltaL * cos (Theta);
-    //X += DeltaB * cos (Theta + 1.57079633);
-    //Y += DeltaB * sin (Theta + 1.57079633);
-
-  //If there is a change in angle, it will calculate the changes in X,Y from chords of an arc/circle.
-  }
-  else {  //If the angle changes
-    SideChord = 2 * ((DeltaL / DeltaTheta) + SL) * sin (DeltaTheta / 2);
-    //BackChord = 2 * ((DeltaB / DeltaTheta) + SS) * sin (DeltaTheta / 2);
-    DeltaYSide = SideChord * cos (Theta + (DeltaTheta / 2));
-    DeltaXSide = SideChord * sin (Theta + (DeltaTheta / 2));
-    //DeltaXBack = BackChord * sin (Theta + (DeltaTheta / 2));
-    //DeltaYBack = -BackChord * cos (Theta + (DeltaTheta / 2));
-    Theta += DeltaTheta;
-    X += DeltaXSide;
-    Y += DeltaYSide;
-  }
-
-  //Odom heading is converting the radian value of Theta into degrees
-  OdomHeading = Theta * 57.295779513;
-
-  //Converts values into newer values to allow for code to effectively work in next cycle
-  PreviousL = currentL;
-  PreviousR = currentR;
-  DeltaTheta = 0;
-  /*--------------------GRAPHICS--------------------*/
-  //Coordinates for each section of text
-  /*int textadjustvalue = 55;
-  int rowadjust = 39;
-
-  //Sets graphical things for our display 
-  Brain.Screen.setPenWidth( 1 );
-  vex::color redtile = vex::color( 210, 31, 60 );
-  vex::color bluetile = vex::color( 14, 77, 146 );
-  vex::color graytile = vex::color( 49, 51, 53 );
-  Brain.Screen.setFillColor(vex::color( 0, 0, 0 ));
-  Brain.Screen.setFont(vex::fontType::mono20);
-  Brain.Screen.setPenColor( vex::color( 222, 49, 99 ) );
-
-  //Displays all the field tiles, text of odom values, and a dot symbolizing the robot
-  Brain.Screen.printAt(40,20 + textadjustvalue, "X-Pos:%f",-X);
-  Brain.Screen.setPenColor( vex::color( 191, 10, 48 ) );
-  Brain.Screen.printAt(40,50 + textadjustvalue, "Y-Pos:%f",Y);
-  Brain.Screen.setPenColor( vex::color( 141, 2, 31 ) );
-  Brain.Screen.printAt(40,80 + textadjustvalue, "Theta:%f",Theta);
-  Brain.Screen.setPenColor( vex::color( 83, 2, 1 ) );
-  Brain.Screen.printAt(40,110 + textadjustvalue, "Angle:%f",OdomHeading);
-  Brain.Screen.setPenColor( vex::color( 255, 255, 255 ) );
-  Brain.Screen.setFillColor( graytile );
-  Brain.Screen.drawRectangle( 245, 2, 234, 234 );
-  Brain.Screen.drawRectangle( 245, 2, 39, 39 );
-  Brain.Screen.drawRectangle( 245, 80, 39, 39 );
-  Brain.Screen.drawRectangle( 245, 119, 39, 39 );
-  Brain.Screen.drawRectangle( 245, 197, 39, 39 );
-  Brain.Screen.drawRectangle( 245+rowadjust, 2, 39, 39 );
-  Brain.Screen.drawRectangle( 245+rowadjust, 41, 39, 39 );
-  Brain.Screen.drawRectangle( 245+rowadjust, 80, 39, 39 );
-  Brain.Screen.drawRectangle( 245+rowadjust, 119, 39, 39 );
-  Brain.Screen.drawRectangle( 245+rowadjust, 158, 39, 39 );
-  Brain.Screen.drawRectangle( 245+rowadjust, 197, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(2*rowadjust), 2, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(2*rowadjust), 41, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(2*rowadjust), 80, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(2*rowadjust), 119, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(2*rowadjust), 158, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(2*rowadjust), 197, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(3*rowadjust), 2, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(3*rowadjust), 41, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(3*rowadjust), 80, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(3*rowadjust), 119, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(3*rowadjust), 158, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(3*rowadjust), 197, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(4*rowadjust), 2, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(4*rowadjust), 41, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(4*rowadjust), 80, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(4*rowadjust), 119, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(4*rowadjust), 158, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(4*rowadjust), 197, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(5*rowadjust), 2, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(5*rowadjust), 80, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(5*rowadjust), 119, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(5*rowadjust), 197, 39, 39 );
-  Brain.Screen.setFillColor( redtile );
-  Brain.Screen.drawRectangle( 245, 158, 39, 39 );
-  Brain.Screen.drawRectangle( 245, 41, 39, 39 );
-  Brain.Screen.setFillColor( bluetile );
-  Brain.Screen.drawRectangle( 245+(5*rowadjust), 41, 39, 39 );
-  Brain.Screen.drawRectangle( 245+(5*rowadjust), 158, 39, 39 );
-  Brain.Screen.setPenColor( vex::color( 255,255,255));
-  Brain.Screen.setFillColor( vex::color(0,0,0) );
-    
-  //This draws the robot body for position and arm for angle
-  double yfieldvalue = ((-Y)*fieldscale)+245-10;
-  double xfieldvalue = ((-X)*fieldscale)+245;
-  Brain.Screen.drawCircle(xfieldvalue, yfieldvalue, 10 );
-  Brain.Screen.setPenWidth( 4 );
-  //Line angle calculation:
-  //x1 and y1 are the robot's coordinates, which in our case is xfieldvalue and yfieldvalue
-  //angle is the angle the robot is facing, which in our case is Theta
-  //(x1,y1, x1 + line_length*cos(angle),y1 + line_length*sin(angle)) = (x1,y1,x2,y2)
-  Brain.Screen.drawLine(xfieldvalue, yfieldvalue, xfieldvalue+cos(-Theta-(Pi/2))*15, yfieldvalue+ sin(-Theta-(Pi/2)) *15);
-}*/
-
-
-
 // A global instance of competition
 competition Competition;
 bool a = true;
+
+
+
+
+//..........................................................................
+// ODOMETRY
+//..........................................................................
+
+
 // ..........................................................................
 // drivetrain variables
 // ..........................................................................
@@ -189,8 +55,6 @@ double degrees2turns(double degrees) { return 2.8 * degrees; }
 // ..........................................................................
 bool toggle = false;
 bool latch = false;
-bool latch2 = false;
-bool toggle2 = false;
 double lowgoal = 30;
 double shortdist = 60;
 
@@ -401,9 +265,7 @@ void autominus() {
   printing();
 }
 
-void sleeping() {
-  wait(15, seconds); 
-}
+void sleeping() { wait(15, seconds); }
 
 void shoot(double y, double x, double z) {
   shooter.set(false);
@@ -416,7 +278,7 @@ void shoot(double y, double x, double z) {
 void lgrRight(bool x) {
   setcoast();
   if(x){
-    speed(52);
+    speed(50);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -434,7 +296,7 @@ void lgrRight(bool x) {
 void lgrLeft(bool x) {
   setcoast();
   if(x){
-    speed(51);
+    speed(50);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -447,7 +309,7 @@ void lgrLeft(bool x) {
     Left(200, 20, 0);
     For(140, 20, 90);
     spinny.stop();
-}
+  }
 
 
 // low goal and roller and high goal right
@@ -457,15 +319,12 @@ void lgrhgRight() {
   Right(260, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,50,1000);
-  Left(183, 20, 150);
+  Left(200, 20, 0);
   spinny.stop();
-  flywheel.spin(forward,100,pct);
-  //speed(100);
-  For(1,50,20);
-  waitUntil(flywheel.velocity(percent) >= 90);
-  wait(500,msec);
+  speed(100);
+  wait(900,msec);
   shooter.set(false);
-  wait(300, msec);
+  wait(100, msec);
   shooter.set(true);
   wait(500, msec);
   shooter.set(false);
@@ -485,7 +344,7 @@ void lgrhgLeft() {
   Left(280, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,100,1000);
-  Right(255, 20, 100);
+  Right(240, 20, 100);
   spinny.stop();
   speed(100);
   wait(500,msec);
@@ -525,14 +384,7 @@ void pre_auton(void) {
   vexcodeInit();
   setcoast();
   shooter.set(true);
-  expansion.set(false);
-  //Brain.resetTimer();
-
-  //SET VALUES FOR INITIAL ROBOT POSITION
-  //X = 0;
-  //Y = 0;
 }
-
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -573,24 +425,24 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-  int df = flywheel.velocity(percent);
-  double goofygoober = flywheel.temperature(celsius);
 void usercontrol(void) {
+  shooter.set(true);
   gamers.Screen.print("sleeping");
   gamers.ButtonLeft.pressed(autominus);
   gamers.ButtonRight.pressed(autoplus);
-  while(a){
-    if(gamers.ButtonA.pressing()){
+  while (a) {
+
+    if (gamers.ButtonA.pressing()) {
       a = false;
     }
   }
+  wait(1, sec);
   while (!a) {
-    //TrackPOS();
-    //Brain.Screen.render(); //push data to the LCD all at once to prevent image flickering
     // ..........................................................................
     // printing temp/speed
     // ..........................................................................
-
+    int df = flywheel.velocity(percent);
+    double goofygoober = flywheel.temperature(celsius);
     gamers.Screen.clearScreen();
     gamers.Screen.setCursor(1, 1);
     gamers.Screen.print(df);
@@ -602,14 +454,14 @@ void usercontrol(void) {
     // changing between modes
     if (gamers.ButtonR1.pressing()) {
       dtslowmo = true;
-    } 
-    else if (gamers.ButtonR2.pressing()) {
+    } else if (gamers.ButtonR2.pressing()) {
       dtslowmo = false;
     }
     // actual dt code
     if (dtslowmo) {
       dtcode(0.1, 0.1);
     }
+
     else {
       dtcode(1, 0.47);
     }
@@ -634,9 +486,6 @@ void usercontrol(void) {
 
     if (toggle) {
       flypid(75);
-    }
-    else if (toggle2) {
-      flypid(85);
     } 
     else {
       flywheel.stop(coast);
@@ -651,18 +500,7 @@ void usercontrol(void) {
     else {
       latch = false;
     }
-    if(gamers.ButtonB.pressing()) {
-      if(!latch2) {
-        toggle2 = !toggle2;
-        latch2 = true;
-      }
-    }
-    else {
-      latch2 = false;
-    }
-    if(toggle || toggle2){
-      gamers.rumble(rumblePulse);
-    }
+
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
@@ -676,11 +514,12 @@ void usercontrol(void) {
     // ..........................................................................
     if (gamers.ButtonL1.pressing() && gamers.ButtonL2.pressing() &&
         gamers.ButtonR2.pressing() && gamers.ButtonR1.pressing()) {
-      expansion.set(true);
+      expansion.set(false);
       wait(5,msec);
       gamers.Screen.clearScreen();
       gamers.Screen.setCursor(1, 1);
       gamers.Screen.print("expansion fired");
+      flywheel.stop(coast);
     }
    /* else if (gamers.ButtonUp.pressing() && gamers.ButtonDown.pressing() &&
         gamers.ButtonRight.pressing() && gamers.ButtonLeft.pressing()) {
