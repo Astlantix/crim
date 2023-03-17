@@ -463,7 +463,7 @@ void usercontrol(void) {
     }
 
     else {
-      dtcode(1, 0.47);
+      dtcode(1, 0.2);
     }
 
     // ..........................................................................
@@ -500,7 +500,6 @@ void usercontrol(void) {
     else {
       latch = false;
     }
-
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
@@ -508,7 +507,9 @@ void usercontrol(void) {
     else {
       shooter.set(true);
     }
-
+    if(toggle) {
+      gamers.rumble(rumblePulse);
+    }
     // ..........................................................................
     //
     // ..........................................................................
