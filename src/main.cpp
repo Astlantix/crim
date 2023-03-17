@@ -503,8 +503,7 @@ void usercontrol(void) {
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
-    } 
-    else {
+      wait(200,msec);
       shooter.set(true);
     }
     if(toggle) {
