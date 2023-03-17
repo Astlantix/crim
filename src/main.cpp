@@ -296,7 +296,7 @@ void lgrRight(bool x) {
 void lgrLeft(bool x) {
   setcoast();
   if(x){
-    speed(50);
+    speed(30);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -307,7 +307,7 @@ void lgrLeft(bool x) {
     //For(150,20,20);
     spinny.spin(reverse, 65, percent);
     Left(200, 20, 0);
-    For(140, 20, 90);
+    For(150, 20, 90);
     spinny.stop();
   }
 
