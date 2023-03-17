@@ -149,8 +149,8 @@ void flypid(double flywheel_target_speed_pct) {
 
 // drive code
 void dtcode(double y, double x) {
-  double rightspeed = (gamers.Axis3.position() * y) + (gamers.Axis1.position() * -x);
-  double leftspeed = (gamers.Axis3.position() * y) - (gamers.Axis1.position() * -x);
+  double rightspeed = (gamers.Axis3.position() * y) + (gamers.Axis4.position() * -x);
+  double leftspeed = (gamers.Axis3.position() * y) - (gamers.Axis4.position() * -x);
   fl.spin(forward, leftspeed, percent);
   ml.spin(forward,leftspeed,percent);
   bl.spin(forward, leftspeed, percent);
