@@ -96,37 +96,37 @@ double fly_kd = 0.00005; //fluctuations
 double speed_margin_pct = 2;
 bool flyescvar = false;
 double speed_margin = 0;
-double speed_volt = 0;
+double speed_rpm = 0;
 
 void speed(double targspeedpct) {
-  double avgvolt = 0;
+  double avgrpm = 0;
   double preverror = 0;
   double error = 0;
   double errorsum = 0;
   double derivative = 0;
-  double targspeedvolt = (targspeedpct/100)*12;
+  double targspeedrpm = (targspeedpct)*3600;
   wait(10,msec);
 
   while (!flyescvar) {
-    avgvolt = flywheel.voltage();
-    error = targspeedvolt - avgvolt;
+    avgrpm = flywheel.velocity(rpm);
+    error = targspeedrpm - avgrpm;
     derivative = preverror - error;
     errorsum += error;
     preverror = error;
-    speed_margin = fabs((error/targspeedvolt)*100);
-    speed_volt = error * fly_kp + errorsum * fly_ki + derivative * fly_kd;
+    speed_margin = fabs((error/targspeedrpm)*100);
+    speed_rpm = error * fly_kp + errorsum * fly_ki + derivative * fly_kd;
     wait(5,msec);
 
     if (speed_margin <= speed_margin_pct) {
       flyescvar = true;
     }
     else {
-      flywheel.spin(forward, speed_volt, volt);
+      flywheel.spin(forward, speed_rpm, rpm);
     }
     wait(10,msec);
   }
 }
-
+double speed_volt = 0;
 double preverror = 0;
 double errorsum = 0;
 double error = 0;
@@ -278,7 +278,7 @@ void shoot(double y, double x, double z) {
 void lgrRight(bool x) {
   setcoast();
   if(x){
-    speed(50);
+    speed(20);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -296,7 +296,7 @@ void lgrRight(bool x) {
 void lgrLeft(bool x) {
   setcoast();
   if(x){
-    speed(30);
+    speed(20);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -319,23 +319,24 @@ void lgrhgRight() {
   Right(260, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,50,1000);
-  Left(200, 20, 0);
+  Left(230, 20, 0);
+  flypid(165);
+  wait(2000,msec);
   spinny.stop();
-  speed(100);
-  wait(900,msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  wait(500, msec);
+  wait(1500, msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  wait(500, msec);
+  wait(1500, msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
   wait(500, msec);
   flywheel.stop(coast);
+  spinny.stop();
 }
 // low goal and roller and high goal left
 void lgrhgLeft() {
