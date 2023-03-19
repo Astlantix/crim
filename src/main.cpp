@@ -319,10 +319,9 @@ void lgrhgRight() {
   Right(260, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,50,1000);
-  Left(230, 20, 0);
+  Left(225, 20, 0);
   flypid(165);
   wait(2000,msec);
-  spinny.stop();
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
