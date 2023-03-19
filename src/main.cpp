@@ -340,7 +340,7 @@ void lgrhgRight() {
 void lgrhgLeft() {
   lgrLeft(false);
   Rev(70,20,0);
-  Left(280, 50, 0);
+  Left(300, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,100,1000);
   Right(240, 20, 100);
