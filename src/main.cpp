@@ -305,8 +305,8 @@ void lgrLeft(bool x) {
   }
     For(40,20,20);
     spinny.spin(reverse, 65, percent);
-    Left(30, 20, 0);
-    For(300, 20, 90);
+    //Left(30, 20, 0);
+    //For(300, 20, 90);
     spinny.stop();
   }
 
