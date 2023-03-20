@@ -16,6 +16,8 @@ h2 {
 
 p {
   letter-spacing: 1px;
+  color:black;
+  text-shadow: 0 0 3px ##0cdd99;
 }
 
 
