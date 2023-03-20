@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
+
 <style>
-
-
 div {
-  font-family: "Brush Script MT", cursive;
+  font-family: "Comic Sans MS", cursive;
 }
 h1 {
   text-align: center;
@@ -23,10 +20,7 @@ p {
 }
 
 
-
 </style>
-</head>
-<body>
 
   <div>
   <h1>95070B Redwood Robotics</h1>
