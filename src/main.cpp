@@ -91,7 +91,7 @@ void flypid(double target) {
 // fly pid by my favorite amogh gupta
 
 double fly_kp = 0.25; //increase speed
-double fly_ki = 0.3; //range of fluctuation
+double fly_ki = 0.2; //range of fluctuation
 double fly_kd = 0.00005; //fluctuations
 double speed_margin_pct = 2;
 bool flyescvar = false;
@@ -285,12 +285,12 @@ void lgrRight(bool x) {
     x = false;
   }
   flywheel.stop(coast);
-  For(550,20,20);
+  For(500,20,20);
   spinny.spin(reverse, 65, percent);
   Right(200, 20, 0);
-  For(125, 20, 90);
+  For(180, 20, 120);
   spinny.stop();
-  Rev(10,0,0);
+  Rev(20,0,0);
 }
 // low goal and roller left
 void lgrLeft(bool x) {
@@ -314,23 +314,23 @@ void lgrLeft(bool x) {
 // low goal and roller and high goal right
 void lgrhgRight() {
   lgrRight(false);
-  Rev(150,20,0);
-  Right(260, 50, 0);
+  Rev(154,20,0);
+  Right(256, 50, 0);
+  flypid(188);
   spinny.spin(forward, 100, percent);
-  For(650,50,1000);
-  Left(216.25, 20, 0);
-  flypid(162);
-  wait(2000,msec);
+  For(1000,50,1000);
+  Left(190, 20, 0);
+  Rev(60,20,200);
   shooter.set(false);
-  wait(100, msec);
+  wait(200, msec);
   shooter.set(true);
-  wait(1500, msec);
+  wait(1000, msec);
   shooter.set(false);
-  wait(100, msec);
+  wait(200, msec);
   shooter.set(true);
-  wait(1500, msec);
+  wait(1000, msec);
   shooter.set(false);
-  wait(100, msec);
+  wait(200, msec);
   shooter.set(true);
   wait(500, msec);
   flywheel.stop(coast);
