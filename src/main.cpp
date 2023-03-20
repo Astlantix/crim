@@ -515,7 +515,7 @@ void usercontrol(void) {
     // ..........................................................................
     if (gamers.ButtonL1.pressing() && gamers.ButtonL2.pressing() &&
         gamers.ButtonR2.pressing() && gamers.ButtonR1.pressing()) {
-      expansion.set(false);
+      expansion.set(true);
       wait(5,msec);
       gamers.Screen.clearScreen();
       gamers.Screen.setCursor(1, 1);
