@@ -180,6 +180,9 @@ void setcoast() {
   mr.setStopping(coast);
   br.setStopping(coast);
 }
+void Forward(double joe) {
+  ml.spin(forward,100,pct);
+}
 void For(double x, double y, double z) {
   setV(y);
   fl.spinFor(forward, x, degrees, false);
@@ -384,6 +387,7 @@ void lgrhgLeft() {
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
+  Inertial.calibrate();
   setcoast();
   shooter.set(true);
 }
