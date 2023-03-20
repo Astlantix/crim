@@ -12,15 +12,18 @@ h1 {
   text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   color: ocean;
 }
+h2 {
+  text-align: left;
+  text-shadow: 0 0 3px #ff0340, 0 0 5px #3341ff;
+  color: black;
+}
 
 p {
   letter-spacing: 1px;
 }
 
 
-h2 {
-  
-}
+
 </style>
 </head>
 <body>
@@ -29,13 +32,13 @@ h2 {
   <h1>95070B Redwood Robotics</h1>
   
   <h2>Flywheel PID</h2>
-  <p>PID for flywheel. .</p>
+  <p>PID for flywheel</p>
 
-  <h2>Auton Selector</h2>
-  <p>Auton Selector for selecting autons</p>
-  
-  <h2> Goofy stuff </h2>
-  <p>random stuff im gonna add like odometry and lvgl (im gonna goofy)</p>
+  <h2>Odometry (coming soon)</h2>
+  <p> goofy odometry</p>
+
+  <h2>LVGL (for odom)</h2>
+  <p>also very goofy</p>
   </div>
 
 </body>
