@@ -285,7 +285,7 @@ void lgrRight(bool x) {
     x = false;
   }
   flywheel.stop(coast);
-  For(400,20,20);
+  For(550,20,20);
   spinny.spin(reverse, 65, percent);
   Right(200, 20, 0);
   For(125, 20, 90);
@@ -344,9 +344,10 @@ void lgrhgLeft() {
   Left(300, 50, 0);
   spinny.spin(forward, 100, percent);
   For(650,100,1000);
-  Right(233, 20, 100);
+  Right(223, 20, 100);
+  Rev(40,20,20);
   spinny.spin(reverse,100,percent);
-  flypid(160);
+  flypid(165);
   wait(2000,msec);
   spinny.stop();
   shooter.set(false);
