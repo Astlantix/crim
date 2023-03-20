@@ -181,7 +181,36 @@ void setcoast() {
   br.setStopping(coast);
 }
 void Forward(double joe) {
-  ml.spin(forward,100,pct);
+  ml.spin(forward,joe,pct);
+  bl.spin(forward,joe,pct);
+  mr.spin(forward,joe,pct);
+  br.spin(forward,joe,pct);
+  fl.spin(forward,joe,pct);
+  fr.spin(forward,joe,pct);
+}
+void Reverse(double joe) {
+  ml.spin(reverse,joe,pct);
+  bl.spin(reverse,joe,pct);
+  mr.spin(reverse,joe,pct);
+  br.spin(reverse,joe,pct);
+  fl.spin(reverse,joe,pct);
+  fr.spin(reverse,joe,pct);
+}
+void righT(double joe) {
+  ml.spin(forward,joe,pct);
+  bl.spin(forward,joe,pct);
+  mr.spin(reverse,joe,pct);
+  br.spin(reverse,joe,pct);
+  fl.spin(reverse,joe,pct);
+  fr.spin(reverse,joe,pct);
+}
+void lefT(double joe) {
+  ml.spin(reverse,joe,pct);
+  bl.spin(reverse,joe,pct);
+  mr.spin(forward,joe,pct);
+  br.spin(forward,joe,pct);
+  fl.spin(forward,joe,pct);
+  fr.spin(forward,joe,pct);
 }
 void For(double x, double y, double z) {
   setV(y);
@@ -290,10 +319,13 @@ void lgrRight(bool x) {
   flywheel.stop(coast);
   For(500,20,20);
   spinny.spin(reverse, 65, percent);
-  Right(200, 20, 0);
+  while(Inertial.heading(degrees) < 90){
+    righT(20);
+  }
   For(180, 20, 120);
   spinny.stop();
   Rev(20,0,0);
+  Inertial.resetHeading();
 }
 // low goal and roller left
 void lgrLeft(bool x) {
@@ -318,7 +350,9 @@ void lgrLeft(bool x) {
 void lgrhgRight() {
   lgrRight(false);
   Rev(154,20,0);
-  Right(256, 50, 0);
+  while(Inertial.heading(degrees) < 45) {
+    righT(20);
+  }
   flypid(188);
   spinny.spin(forward, 100, percent);
   For(1000,50,1000);
