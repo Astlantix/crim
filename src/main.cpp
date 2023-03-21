@@ -394,7 +394,7 @@ void lgrhgRight() {
   Inertial.setHeading(0,degrees);
   spinny.spin(forward,100,percent);
   For(500, 40, 1750);
-  flypid(205);
+  flypid(205.5);
   LEFT(166);
   wait(750,msec);
   shooter.set(false);
@@ -402,7 +402,7 @@ void lgrhgRight() {
   shooter.set(true);
   RIGHT(3);
   wait(20,msec);
-  flypid(187);
+  flypid(189);
   wait(1000, msec);
   shooter.set(false);
   wait(50, msec);
@@ -417,7 +417,7 @@ void lgrhgRight() {
   spinny.spin(reverse,100,pct);
   For(570, 70, 1);
   RIGHT(57);
-  For(350,100,2000);
+  For(300,100,2000);
   spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
