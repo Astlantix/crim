@@ -601,53 +601,37 @@ void usercontrol(void) {
     // ..........................................................................
     // shooter
 
-    if(gamers.ButtonB.pressing()) {
+
+    if(gamers.ButtonA.pressing()) {
       dspeed = 75;
     }
 
     else if (gamers.ButtonX.pressing()) {
-      dspeed = 83;
-    }
-
-    else if(gamers.ButtonY.pressing()) {
-      dspeed = 200;
-    }
-
-    if(gamers.ButtonA.pressing()) {
-      flypid(75);
-      toggle = 1;
-    }
-
-    else if (gamers.ButtonX.pressing()) {
-      flypid(80);
-      toggle = 1;
+      dspeed = 70;
     }
     else if (gamers.ButtonY.pressing()) {
-      flypid(200);
-      toggle = 1;
+      dspeed = 80;
     }
 
-    if(gamers.ButtonB.pressing()) {
-      flywheel.stop(coast);
-      toggle = 0;
-    }
+ 
 
-   /* if (toggle) {
+    if (toggle) {
       flypid(dspeed);
     } 
     else {
       flywheel.stop(coast);
-    }*/
+    }
 
-    /*if (gamers.ButtonA.pressing()) {
-      if (!latch) 
-        toggle = !toggle;
+    if (gamers.ButtonA.pressing() || gamers.ButtonY.pressing() || gamers.ButtonX.pressing()) {
+      if (!latch) {
+        toggle = 1;
         latch = true;
       }
     } 
-    else {
+    else if(gamers.ButtonB.pressing()) {
       latch = false;
-    }*/
+      toggle = false;
+    }
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
