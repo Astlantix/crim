@@ -158,7 +158,49 @@ void dtcode(double y, double x) {
   mr.spin(forward,rightspeed,percent);
   br.spin(forward, rightspeed, percent);
 }
+void stoop() {
+  ml.stop(hold);
+  mr.stop(hold);
+  fr.stop(hold);
+  fl.stop(hold);
+  bl.stop(hold);
+  br.stop(hold);
+}
 
+void RIGHT(double amount) {
+Inertial.setRotation(0, degrees);
+while(fabs(Inertial.rotation(degrees)) < amount) {
+  double error = amount - fabs(Inertial.rotation(degrees));
+  fl.spin(forward, 0.2*error + 5, percent);
+  ml.spin(forward, 0.2*error + 5, percent);
+  bl.spin(forward, 0.2*error + 5, percent);
+  fr.spin(reverse, 0.2*error + 5, percent);
+  mr.spin(reverse, 0.2*error + 5, percent);
+  br.spin(reverse, 0.2*error + 5, percent);
+  wait(5, msec);
+}
+stoop();
+wait(0.5, sec);
+Inertial.setRotation(0, degrees);
+}
+
+void LEFT(double amount) {
+Inertial.setRotation(0, degrees);
+while(fabs(Inertial.rotation(degrees)) < amount) {
+  double error = amount - fabs(Inertial.rotation(degrees));
+  
+  fl.spin(reverse, 0.2*error + 5, percent);
+  ml.spin(reverse, 0.2*error + 5, percent);
+  br.spin(reverse, 0.2*error + 5, percent);
+  fr.spin(forward, 0.2*error + 5, percent);
+  mr.spin(forward, 0.2*error + 5, percent);
+  br.spin(forward, 0.2*error + 5, percent);
+  wait(5, msec);
+}
+stoop();
+wait(0.5, sec);
+Inertial.setRotation(0, degrees);
+}
 
 
 // ..........................................................................
