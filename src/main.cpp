@@ -309,7 +309,7 @@ void shoot(double y, double x, double z) {
 // low goal and roller right
 void lgrRight(bool x) {
   setcoast();
-  Inertial.resetHeading();
+  Inertial.setHeading(0,degrees);
   if(x){
     speed(20);
     wait(2500, msec);
@@ -318,16 +318,9 @@ void lgrRight(bool x) {
     x = false;
   }
   flywheel.stop(coast);
-  For(500,20,20);
+  For(500/4,20,20);
   spinny.spin(reverse, 65, percent);
-  while(Inertial.heading(degrees) != 90 || Inertial.heading(degrees) != 270){
-    fl.spin(forward, 20, percent);
-    bl.spin(forward, 20, percent);
-    ml.spin(forward,20,percent);
-    fr.spin(reverse, 20, percent);
-    br.spin(reverse, 20, percent);
-    mr.spin(reverse,20,percent);    
-  }
+  Right(180,20,20);
   For(180, 20, 120);
   spinny.stop();
   Rev(20,0,0);
@@ -354,8 +347,8 @@ void lgrLeft(bool x) {
 
 // low goal and roller and high goal right
 void lgrhgRight() {
-  Inertial.resetHeading();
-  spinny.spin(forward,100,percent);
+  Inertial.setHeading(0,degrees);
+  /*spinny.spin(forward,100,percent);
   For(500, 30, 1750);
   spinny.stop();
   flypid(199.75);
@@ -374,11 +367,11 @@ void lgrhgRight() {
   wait(200, msec);
   shooter.set(true);
   wait(500, msec);
-  flywheel.stop(coast);
+  flywheel.stop(coast);*/
 
-  /*lgrRight(false);
+  lgrRight(false);
   Rev(154,20,0);
-  while(Inertial.heading(degrees) != 225){
+  while(Inertial.heading(degrees) > 225){
     fl.spin(forward, 20, percent);
     bl.spin(forward, 20, percent);
     ml.spin(forward,20,percent);
@@ -404,7 +397,7 @@ void lgrhgRight() {
   shooter.set(true);
   wait(500, msec);
   flywheel.stop(coast);
-  spinny.stop();*/
+  spinny.stop();
 }
 // low goal and roller and high goal left
 void lgrhgLeft() {
@@ -455,8 +448,17 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   Inertial.calibrate();
+  while(Inertial.isCalibrating()) {
+    wait(20,msec);
+  }
   setcoast();
   shooter.set(true);
+  fl.setPosition(0,degrees);
+  fr.setPosition(0,degrees);
+  mr.setPosition(0,degrees);
+  ml.setPosition(0,degrees);
+  bl.setPosition(0,degrees);
+  br.setPosition(0,degrees);
 }
 
 /*---------------------------------------------------------------------------*/
