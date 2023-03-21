@@ -402,7 +402,7 @@ void lgrhgRight() {
   shooter.set(true);
   RIGHT(3);
   wait(300,msec);
-  flypid(189);
+  flypid(187);
   wait(1000, msec);
   shooter.set(false);
   wait(300, msec);
