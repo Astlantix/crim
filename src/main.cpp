@@ -99,20 +99,19 @@ double speed_margin_pct = 2;
 bool flyescvar = false;
 double speed_margin = 0;
 double speed_rpm = 0;
+double avgrpm = 0;
+double preverror = 0;
+double error = 0;
+double errorsum = 0;
+double derivative = 0;
 
 //This is the function that we will be calling in our main program
 void speed(double targspeedpct) {
+    double targspeedrpm = (targspeedpct)*3600;
   //This section sets up the variables that will be used in the PID loop
-  double avgrpm = 0;
-  double preverror = 0;
-  double error = 0;
-  double errorsum = 0;
-  double derivative = 0;
-  double targspeedrpm = (targspeedpct)*3600;
-  wait(10,msec);
+
   
-  //This while loop will continue to run until the flywheel has reached the correct speed
-  while (!flyescvar) {
+  
     //This section of the code will calculate the average RPM of the flywheel
     avgrpm = flywheel.velocity(rpm);
     //This section of the code calculates the error between the current speed and the target speed
@@ -124,27 +123,21 @@ void speed(double targspeedpct) {
     //This section sets the previous error to the current error
     preverror = error;
     //This section calculates the speed margin
-    speed_margin = fabs((error/targspeedrpm)*100);
+    speed_margin = fabs((error/targspeedrpm)*36);
     //This section calculates the speed RPM
     speed_rpm = error * fly_kp + errorsum * fly_ki + derivative * fly_kd;
     wait(5,msec);
-    
+    flywheel.spin(forward, speed_rpm, rpm);
     //This section of the code will check to see if the flywheel has reached the correct speed
-    if (speed_margin <= speed_margin_pct) {
-      flyescvar = true;
-    }
+
     //This section of the code will run if the flywheel has not yet reached the correct speed
-    else {
-      flywheel.spin(forward, speed_rpm, rpm);
-    }
-    wait(10,msec);
-  }
+ 
 }
 double speed_volt = 0; //create a variable to hold the speed in voltage
-double preverror = 0; //create a variable to hold the previous error
+/*double preverror = 0; //create a variable to hold the previous error
 double errorsum = 0; //create a variable to hold the sum of errors
 double error = 0; //create a variable to hold the current error
-double derivative = 0; //create a variable to hold the derivative
+double derivative = 0; //create a variable to hold the derivative*/
 void flypid(double flywheel_target_speed_pct) { //create a function to take the target speed in percent
   double averagevolt = 0; //create a variable to hold the average voltage
   
@@ -409,19 +402,17 @@ void lgrhgRight() {
   Inertial.setHeading(0,degrees);
   spinny.spin(forward,100,percent);
   For(500, 40, 1750);
-  flypid(205);
-  LEFT(167.5);
+  flypid(100);
+  LEFT(170);
   wait(750,msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
   wait(20,msec);
   RIGHT(7);
-  flypid(187.2);
   wait(1000, msec);
   shooter.set(false);
   wait(100, msec);
-  flypid(186.07);
   shooter.set(true);
   wait(650, msec);
   shooter.set(false);
@@ -557,6 +548,7 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 double dspeed = 75;
+bool goofy;
 void usercontrol(void) {
   shooter.set(true);
   gamers.Screen.print("sleeping");
@@ -619,19 +611,27 @@ void usercontrol(void) {
 
     if(gamers.ButtonA.pressing()) {
       dspeed = 75;
+      goofy = false;
     }
 
     else if (gamers.ButtonX.pressing()) {
       dspeed = 70;
+      goofy = false;
     }
     else if (gamers.ButtonY.pressing()) {
-      dspeed = 80;
+      dspeed = 30;
+      goofy = true;
     }
 
  
 
     if (toggle) {
-      flypid(dspeed);
+      if(goofy) {
+        speed(dspeed);
+      }
+      else {
+        flypid(dspeed);
+      }
     } 
     else {
       flywheel.stop(coast);
