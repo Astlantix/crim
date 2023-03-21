@@ -180,7 +180,7 @@ while(fabs(Inertial.rotation(degrees)) < amount) {
   wait(5, msec);
 }
 stoop();
-wait(0.5, sec);
+wait(20, msec);
 Inertial.setRotation(0, degrees);
 }
 
@@ -199,7 +199,7 @@ while(fabs(Inertial.rotation(degrees)) < amount) {
   wait(5, msec);
 }
 stoop();
-wait(0.5, sec);
+wait(20, msec);
 Inertial.setRotation(0, degrees);
 }
 
@@ -415,9 +415,9 @@ void lgrhgRight() {
   flywheel.stop(coast);
   LEFT(73);
   spinny.spin(reverse,100,pct);
-  For(570, 40, 20);
+  For(570, 70, 1);
   RIGHT(57);
-  For(375,40,2000);
+  For(375,100,2000);
   spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
