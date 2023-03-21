@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>README</title>
 <style>
 div {
   font-family: "Comic Sans MS", cursive;
