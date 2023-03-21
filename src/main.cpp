@@ -309,6 +309,8 @@ void shoot(double y, double x, double z) {
 // low goal and roller right
 void lgrRight(bool x) {
   setcoast();
+  Inertial.calibrate();
+  while(Inertial.isCalibrating()) {wait(20,msec);}
   if(x){
     speed(20);
     wait(2500, msec);
@@ -328,8 +330,6 @@ void lgrRight(bool x) {
 // low goal and roller left
 void lgrLeft(bool x) {
   setcoast();
-  Inertial.calibrate();
-  while(Inertial.isCalibrating()) {wait(20,msec);}
   if(x){
     speed(20);
     wait(2500, msec);
