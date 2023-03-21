@@ -1,4 +1,4 @@
-
+  
  <style>
     div {
     font-family: "Comic Sans MS", cursive; 
@@ -24,14 +24,15 @@
   
   <h2>Flywheel PID</h2>
   <p>PID for flywheel</p>
-
+  
   <h2>Odometry (coming soon)</h2>
   <p> goofy odometry</p>
-
+  
   <h2>LVGL (for odom)</h2>
   <p>also very goofy</p>
   </div>
-
-
-
-
+  
+  
+  
+  
+  
