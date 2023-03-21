@@ -417,8 +417,8 @@ void lgrhgRight() {
   spinny.spin(reverse,100,pct);
   For(550, 30, 20);
   RIGHT(57);
-  For(400,20,20);
-
+  For(400,20,2000);
+  spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
   RIGHT(135);
@@ -441,7 +441,7 @@ void lgrhgRight() {
   wait(500, msec);
   flywheel.stop(coast);
   spinny.stop();*/
-  flywheel.setStopping(hold);
+  flywheel.setStopping(hold); 
 }
 // low goal and roller and high goal left
 void lgrhgLeft() {
