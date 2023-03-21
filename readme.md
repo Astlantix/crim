@@ -5,9 +5,10 @@ div {
 }
 h1 {
   text-align: center;
-  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
-  color: ocean;
+  text-shadow: 0 0 5px #330099, 0 0 7px #330099;
+  color: black;
 }
+
 h2 {
   text-align: left;
   text-shadow: 0 0 3px #ff0340, 0 0 5px #3341ff;
@@ -16,8 +17,8 @@ h2 {
 
 p {
   letter-spacing: 1px;
-  color:black;
-  text-shadow: 0 0 3px ##0cdd99;
+  color:blue;
+  text-shadow: 0 0 3px ##3341ff;
 }
 
 
