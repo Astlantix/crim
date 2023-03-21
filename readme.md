@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <style>
     div {
@@ -35,8 +35,8 @@
   <h2>LVGL (for odom)</h2>
   <p>also very goofy</p>
   </div>
-
-</body>
 </html>
+</body>
+
 
 
