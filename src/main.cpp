@@ -417,7 +417,7 @@ void lgrhgRight() {
   spinny.spin(reverse,100,pct);
   For(570, 70, 1);
   RIGHT(57);
-  For(375,100,2000);
+  For(350,100,2000);
   spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
