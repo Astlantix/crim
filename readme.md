@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <style>
 div {
   font-family: "Comic Sans MS", cursive;
@@ -24,7 +23,7 @@ p {
 
 
 </style>
-
+<html>
   <div>
   <h1>95070B Redwood Robotics</h1>
   
