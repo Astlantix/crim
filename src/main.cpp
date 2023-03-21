@@ -541,7 +541,7 @@ void autonomous(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
-
+double dspeed = 75;
 void usercontrol(void) {
   shooter.set(true);
   gamers.Screen.print("sleeping");
@@ -601,22 +601,53 @@ void usercontrol(void) {
     // ..........................................................................
     // shooter
 
-    if (toggle) {
+    if(gamers.ButtonB.pressing()) {
+      dspeed = 75;
+    }
+
+    else if (gamers.ButtonX.pressing()) {
+      dspeed = 83;
+    }
+
+    else if(gamers.ButtonY.pressing()) {
+      dspeed = 200;
+    }
+
+    if(gamers.ButtonA.pressing()) {
       flypid(75);
+      toggle = 1;
+    }
+
+    else if (gamers.ButtonX.pressing()) {
+      flypid(80);
+      toggle = 1;
+    }
+    else if (gamers.ButtonY.pressing()) {
+      flypid(200);
+      toggle = 1;
+    }
+
+    if(gamers.ButtonB.pressing()) {
+      flywheel.stop(coast);
+      toggle = 0;
+    }
+
+   /* if (toggle) {
+      flypid(dspeed);
     } 
     else {
       flywheel.stop(coast);
-    }
+    }*/
 
-    if (gamers.ButtonA.pressing()) {
-      if (!latch) {
+    /*if (gamers.ButtonA.pressing()) {
+      if (!latch) 
         toggle = !toggle;
         latch = true;
       }
     } 
     else {
       latch = false;
-    }
+    }*/
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
