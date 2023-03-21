@@ -415,14 +415,7 @@ void lgrhgRight() {
 
   lgrRight(false);
   Rev(154,20,0);
-  while(Inertial.heading(degrees) > 135){
-    fl.spin(forward, 20, percent);
-    bl.spin(forward, 20, percent);
-    ml.spin(forward,20,percent);
-    fr.spin(reverse, 20, percent);
-    br.spin(reverse, 20, percent);
-    mr.spin(reverse,20,percent);
-  }
+  RIGHT(135);
   flypid(188);
   spinny.spin(forward, 100, percent);
   For(1000,50,1000);
