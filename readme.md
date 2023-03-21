@@ -1,6 +1,6 @@
 
 
-  <style>
+ ### <style>
     div {
     font-family: "Comic Sans MS", cursive; 
     }
@@ -19,7 +19,7 @@
       color:blue;
       text-shadow: 0 0 3px #3341ff;
     }
-  </style>
+ ### </style>
   <div>
   <h1>95070B Redwood Robotics</h1>
   
