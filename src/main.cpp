@@ -398,20 +398,20 @@ void lgrhgRight() {
   LEFT(166);
   wait(750,msec);
   shooter.set(false);
-  wait(300, msec);
+  wait(50, msec);
   shooter.set(true);
   RIGHT(3);
-  wait(300,msec);
+  wait(20,msec);
   flypid(187);
   wait(1000, msec);
   shooter.set(false);
-  wait(300, msec);
+  wait(50, msec);
   shooter.set(true);
-  wait(1000, msec);
+  wait(150, msec);
   shooter.set(false);
-  wait(200, msec);
+  wait(750, msec);
   shooter.set(true);
-  wait(500, msec);
+  wait(150, msec);
   flywheel.stop(coast);
   LEFT(73);
   spinny.spin(reverse,100,pct);
@@ -458,15 +458,15 @@ void lgrhgLeft() {
   wait(2000,msec);
   spinny.stop();
   shooter.set(false);
-  wait(200, msec);
+  wait(175, msec);
   shooter.set(true);
-  wait(500, msec);
+  wait(50, msec);
   shooter.set(false);
-  wait(200, msec);
+  wait(175, msec);
   shooter.set(true);
-  wait(500, msec);
+  wait(50, msec);
   shooter.set(false);
-  wait(200, msec);
+  wait(175, msec);
   shooter.set(true);
   wait(500, msec);
   flywheel.stop(coast);
@@ -528,6 +528,7 @@ void autonomous(void) {
   if (autoslct == 5) {
     lgrhgRight();
   }
+  setcoast();
 }
 
 /*---------------------------------------------------------------------------*/
