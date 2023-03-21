@@ -1,7 +1,4 @@
 <style>
-div {
-font-family: "Comic Sans MS", cursive;
-}
 h1 {
 text-align: center;
 text-shadow: 0 0 5px #330099, 0 0 7px #330099;
@@ -19,6 +16,7 @@ text-shadow: 0 0 3px #3341ff;
 }
 </style>
 
+<body>
 
 # 95070B Redwood Robotics
 
@@ -28,9 +26,7 @@ text-shadow: 0 0 3px #3341ff;
 ## Odometry (coming soon)
 ### goofy odometry
 
-## LVGL (for odom
+## LVGL (for odom)
 ### also very goofy
 
-
-
-
+</body>
