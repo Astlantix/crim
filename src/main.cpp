@@ -90,7 +90,7 @@ void flypid(double target) {
 
 // fly pid by my favorite amogh gupta
 
-double fly_kp = 0.25; //range of fluctuations
+double fly_kp = 0.2; //range of fluctuations
 double fly_ki = 0.2; //increase speed
 double fly_kd = 0.00005; //fluctuations
 double speed_margin_pct = 2;
@@ -593,7 +593,7 @@ void usercontrol(void) {
     // shooter
 
     if (toggle) {
-      flypid(75);
+      flypid(63);
     } 
     else {
       flywheel.stop(coast);
@@ -611,8 +611,9 @@ void usercontrol(void) {
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
-      wait(200,msec);
+      wait(500,msec);
       shooter.set(true);
+      wait(200,msec);
     }
     if(toggle) {
       gamers.rumble(rumblePulse);
