@@ -407,9 +407,9 @@ void lgrhgRight() {
   shooter.set(false);
   wait(50, msec);
   shooter.set(true);
-  wait(150, msec);
-  shooter.set(false);
   wait(750, msec);
+  shooter.set(false);
+  wait(50, msec);
   shooter.set(true);
   wait(150, msec);
   flywheel.stop(coast);
