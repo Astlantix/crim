@@ -14,7 +14,7 @@ color: black;
 }
 h3 {
 font-family: "Comic Sans MS";
-letter-spacing: 1px;
+letter-spacing: 2px;
 color:blue;
 text-shadow: 0 0 1px #3341ff;
 }
