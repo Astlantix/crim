@@ -12,25 +12,24 @@ text-align: left;
 text-shadow: 0 0 3px #ff0340, 0 0 5px #3341ff;
 color: black;
 }
-p {
+h3 {
 letter-spacing: 1px;
 color:blue;
 text-shadow: 0 0 3px #3341ff;
 }
 </style>
 
-<div>
-<h1>95070B Redwood Robotics</h1>
 
-<h2>Flywheel PID</h2>
-<p>PID for flywheel</p>
+# 95070B Redwood Robotics
 
-<h2>Odometry (coming soon)</h2>
-<p> goofy odometry</p>
+## Flywheel PID
+### PID for flywheel
 
-<h2>LVGL (for odom)</h2>
-<p>also very goofy</p>
-</div>
+## Odometry (coming soon)
+### goofy odometry
+
+## LVGL (for odom
+### also very goofy
 
 
 
