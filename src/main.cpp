@@ -309,7 +309,6 @@ void shoot(double y, double x, double z) {
 // low goal and roller right
 void lgrRight(bool x) {
   setcoast();
-  Inertial.setHeading(0,degrees);
   if(x){
     speed(20);
     wait(2500, msec);
@@ -329,6 +328,8 @@ void lgrRight(bool x) {
 // low goal and roller left
 void lgrLeft(bool x) {
   setcoast();
+  Inertial.calibrate();
+  while(Inertial.isCalibrating()) {wait(20,msec);}
   if(x){
     speed(20);
     wait(2500, msec);
@@ -447,10 +448,6 @@ void lgrhgLeft() {
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-  Inertial.calibrate();
-  while(Inertial.isCalibrating()) {
-    wait(20,msec);
-  }
   setcoast();
   shooter.set(true);
   fl.setPosition(0,degrees);
