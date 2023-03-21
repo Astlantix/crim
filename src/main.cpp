@@ -90,6 +90,8 @@ void flypid(double target) {
 
 // fly pid by my favorite amogh gupta
 
+//This function is used to control the speed of the flywheel
+//It starts by declaring the variables that will be used
 double fly_kp = 0.2; //range of fluctuations
 double fly_ki = 0.2; //increase speed
 double fly_kd = 0.00005; //fluctuations
@@ -98,7 +100,9 @@ bool flyescvar = false;
 double speed_margin = 0;
 double speed_rpm = 0;
 
+//This is the function that we will be calling in our main program
 void speed(double targspeedpct) {
+  //This section sets up the variables that will be used in the PID loop
   double avgrpm = 0;
   double preverror = 0;
   double error = 0;
@@ -106,56 +110,67 @@ void speed(double targspeedpct) {
   double derivative = 0;
   double targspeedrpm = (targspeedpct)*3600;
   wait(10,msec);
+  
+  //This while loop will continue to run until the flywheel has reached the correct speed
   while (!flyescvar) {
+    //This section of the code will calculate the average RPM of the flywheel
     avgrpm = flywheel.velocity(rpm);
+    //This section of the code calculates the error between the current speed and the target speed
     error = targspeedrpm - avgrpm;
+    //This section calculates the derivative of the error
     derivative = preverror - error;
+    //This section adds the error to the error sum
     errorsum += error;
+    //This section sets the previous error to the current error
     preverror = error;
+    //This section calculates the speed margin
     speed_margin = fabs((error/targspeedrpm)*100);
+    //This section calculates the speed RPM
     speed_rpm = error * fly_kp + errorsum * fly_ki + derivative * fly_kd;
     wait(5,msec);
-
+    
+    //This section of the code will check to see if the flywheel has reached the correct speed
     if (speed_margin <= speed_margin_pct) {
       flyescvar = true;
     }
+    //This section of the code will run if the flywheel has not yet reached the correct speed
     else {
       flywheel.spin(forward, speed_rpm, rpm);
     }
     wait(10,msec);
   }
 }
-double speed_volt = 0;
-double preverror = 0;
-double errorsum = 0;
-double error = 0;
-double derivative = 0;
-void flypid(double flywheel_target_speed_pct) {
-  double averagevolt = 0;
+double speed_volt = 0; //create a variable to hold the speed in voltage
+double preverror = 0; //create a variable to hold the previous error
+double errorsum = 0; //create a variable to hold the sum of errors
+double error = 0; //create a variable to hold the current error
+double derivative = 0; //create a variable to hold the derivative
+void flypid(double flywheel_target_speed_pct) { //create a function to take the target speed in percent
+  double averagevolt = 0; //create a variable to hold the average voltage
   
-  double flywheel_target_speed_volt = (flywheel_target_speed_pct/100)*12;
+  double flywheel_target_speed_volt = (flywheel_target_speed_pct/100)*12; //calculate the target speed in voltage
 
-  averagevolt = flywheel.voltage();
-  error = flywheel_target_speed_volt - averagevolt;
-  derivative = preverror - error;
-  errorsum += error;
-  preverror = error;
-  speed_margin = fabs((error/flywheel_target_speed_volt) * 100);
-  speed_volt =  error * fly_kp + fly_ki * errorsum + fly_kd * derivative;
+  averagevolt = flywheel.voltage(); //measure the average voltage
+  error = flywheel_target_speed_volt - averagevolt; //calculate the error
+  derivative = preverror - error; //calculate the derivative
+  errorsum += error; //add the error to the sum of errors
+  preverror = error; //set the previous error to the current error
+  speed_margin = fabs((error/flywheel_target_speed_volt) * 100); //calculate the margin of error as a percentage
+  speed_volt =  error * fly_kp + fly_ki * errorsum + fly_kd * derivative; //calculate the speed in voltage
   
-  flywheel.spin(fwd, speed_volt, volt);
+  flywheel.spin(fwd, speed_volt, volt); //spin the flywheel at the calculated speed
 }
 
 // drive code
-void dtcode(double y, double x) {
-  double rightspeed = (gamers.Axis3.position() * y) + (gamers.Axis4.position() * -x);
-  double leftspeed = (gamers.Axis3.position() * y) - (gamers.Axis4.position() * -x);
-  fl.spin(forward, leftspeed, percent);
-  ml.spin(forward,leftspeed,percent);
-  bl.spin(forward, leftspeed, percent);
-  fr.spin(forward, rightspeed, percent);
-  mr.spin(forward,rightspeed,percent);
-  br.spin(forward, rightspeed, percent);
+void dtcode(double y, double x) { //define the function
+  double rightspeed = (gamers.Axis3.position() * y) + (gamers.Axis4.position() * -x); //calculate the right speed
+  double leftspeed = (gamers.Axis3.position() * y) - (gamers.Axis4.position() * -x); //calculate the left speed
+  fl.spin(forward, leftspeed, percent); //set the left motor speed
+  ml.spin(forward,leftspeed,percent); //set the left motor speed
+  bl.spin(forward, leftspeed, percent); //set the left motor speed
+  fr.spin(forward, rightspeed, percent); //set the right motor speed
+  mr.spin(forward,rightspeed,percent); //set the right motor speed
+  br.spin(forward, rightspeed, percent); //set the right motor speed
 }
 void stoop() {
   ml.stop(hold);
