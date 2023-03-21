@@ -402,7 +402,7 @@ void lgrhgRight() {
   Inertial.setHeading(0,degrees);
   spinny.spin(forward,100,percent);
   For(500, 40, 1750);
-  flypid(100);
+  speed(33);
   LEFT(170);
   wait(750,msec);
   shooter.set(false);
@@ -619,11 +619,9 @@ void usercontrol(void) {
       goofy = false;
     }
     else if (gamers.ButtonY.pressing()) {
-      dspeed = 30;
+      dspeed = 33;
       goofy = true;
     }
-
- 
 
     if (toggle) {
       if(goofy) {
