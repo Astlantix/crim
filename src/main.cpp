@@ -415,9 +415,9 @@ void lgrhgRight() {
   flywheel.stop(coast);
   LEFT(73);
   spinny.spin(reverse,100,pct);
-  For(570, 70, 1);
+  For(590, 70, 1);
   RIGHT(57);
-  For(300,100,2000);
+  For(278.9,70,2000);
   spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
