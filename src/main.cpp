@@ -167,15 +167,16 @@ void stoop() {
 }
 
 void RIGHT(double amount) {
+  amount -= 6;
 Inertial.setRotation(0, degrees);
 while(fabs(Inertial.rotation(degrees)) < amount) {
   double error = amount - fabs(Inertial.rotation(degrees));
-  fl.spin(forward, 0.2*error + 5, percent);
-  ml.spin(forward, 0.2*error + 5, percent);
-  bl.spin(forward, 0.2*error + 5, percent);
-  fr.spin(reverse, 0.2*error + 5, percent);
-  mr.spin(reverse, 0.2*error + 5, percent);
-  br.spin(reverse, 0.2*error + 5, percent);
+  fl.spin(forward, 0.2*error + 4, percent);
+  ml.spin(forward, 0.2*error + 4, percent);
+  bl.spin(forward, 0.2*error + 4, percent);
+  fr.spin(reverse, 0.2*error + 4, percent);
+  mr.spin(reverse, 0.2*error + 4, percent);
+  br.spin(reverse, 0.2*error + 4, percent);
   wait(5, msec);
 }
 stoop();
@@ -184,6 +185,7 @@ Inertial.setRotation(0, degrees);
 }
 
 void LEFT(double amount) {
+  amount -= 6;
 Inertial.setRotation(0, degrees);
 while(fabs(Inertial.rotation(degrees)) < amount) {
   double error = amount - fabs(Inertial.rotation(degrees));
@@ -261,7 +263,7 @@ void For(double x, double y, double z) {
   fr.spinFor(forward, x, degrees, false);
   mr.spinFor(forward, x, degrees, false);
   br.spinFor(forward, x, degrees);
-  wait(z, msec);
+  wait(0, msec);
 }
 void Rev(double x, double y, double z) {
   setV(y);
@@ -271,7 +273,7 @@ void Rev(double x, double y, double z) {
   fr.spinFor(reverse, x, degrees, false);
   mr.spinFor(reverse, x, degrees, false);
   br.spinFor(reverse, x, degrees);
-  wait(z, msec);
+  wait(0, msec);
 }
 void Revang(double x, double y, double z) {
   fr.spin(reverse, x, percent);
@@ -362,7 +364,7 @@ void lgrRight(bool x) {
   flywheel.stop(coast);
   For(500/4,20,20);
   spinny.spin(reverse, 65, percent);
-  Right(180,20,20);
+  RIGHT(90);
   For(180, 20, 120);
   spinny.stop();
   Rev(20,0,0);
@@ -413,7 +415,7 @@ void lgrhgRight() {
 
   lgrRight(false);
   Rev(154,20,0);
-  while(Inertial.heading(degrees) > 225){
+  while(Inertial.heading(degrees) > 135){
     fl.spin(forward, 20, percent);
     bl.spin(forward, 20, percent);
     ml.spin(forward,20,percent);
