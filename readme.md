@@ -18,7 +18,7 @@
     p {
       letter-spacing: 1px;
       color:blue;
-      text-shadow: 0 0 3px ##3341ff;
+      text-shadow: 0 0 3px #3341ff;
     }
   </style>
 </head>
