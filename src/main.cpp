@@ -394,7 +394,7 @@ void lgrhgRight() {
   Inertial.setHeading(0,degrees);
   spinny.spin(forward,100,percent);
   For(500, 30, 1750);
-  flypid(205);
+  flypid(202.23);
   LEFT(168);
   wait(2000,msec);
   shooter.set(false);
@@ -441,6 +441,7 @@ void lgrhgRight() {
   wait(500, msec);
   flywheel.stop(coast);
   spinny.stop();*/
+  flywheel.setStopping(hold);
 }
 // low goal and roller and high goal left
 void lgrhgLeft() {
