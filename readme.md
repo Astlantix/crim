@@ -21,8 +21,9 @@ p {
 }
 
 
-</style>
 
+</style>
+<body>
   <div>
   <h1>95070B Redwood Robotics</h1>
   
