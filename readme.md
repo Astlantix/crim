@@ -1,4 +1,5 @@
-
+<!DOCTYPE html>
+<html>
 <style>
 div {
   font-family: "Comic Sans MS", cursive;
