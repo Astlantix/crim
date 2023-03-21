@@ -90,8 +90,8 @@ void flypid(double target) {
 
 // fly pid by my favorite amogh gupta
 
-double fly_kp = 0.25; //increase speed
-double fly_ki = 0.2; //range of fluctuation
+double fly_kp = 0.25; //range of fluctuations
+double fly_ki = 0.2; //increase speed
 double fly_kd = 0.00005; //fluctuations
 double speed_margin_pct = 2;
 bool flyescvar = false;
