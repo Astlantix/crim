@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+
   <style>
     div {
     font-family: "Comic Sans MS", cursive; 
@@ -21,8 +20,6 @@
       text-shadow: 0 0 3px #3341ff;
     }
   </style>
-</head>
-<body>
   <div>
   <h1>95070B Redwood Robotics</h1>
   
@@ -35,8 +32,7 @@
   <h2>LVGL (for odom)</h2>
   <p>also very goofy</p>
   </div>
-</html>
-</body>
+
 
 
 
