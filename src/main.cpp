@@ -106,7 +106,6 @@ void speed(double targspeedpct) {
   double derivative = 0;
   double targspeedrpm = (targspeedpct)*3600;
   wait(10,msec);
-
   while (!flyescvar) {
     avgrpm = flywheel.velocity(rpm);
     error = targspeedrpm - avgrpm;
