@@ -511,6 +511,7 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
+  a = false;
   if (autoslct == 1) {
     sleeping();
   }
@@ -526,7 +527,6 @@ void autonomous(void) {
   if (autoslct == 5) {
     lgrhgRight();
   }
-  a = false;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -599,7 +599,7 @@ void usercontrol(void) {
     // shooter
 
     if (toggle) {
-      flypid(63);
+      flypid(75);
     } 
     else {
       flywheel.stop(coast);

@@ -2678,9 +2678,8 @@ Linker script and memory map
                 0x03801880       0xd0 build/src/main.o
                 0x03801880                pre_auton()
  .text._Z10autonomousv
-                0x03801950       0x8c build/src/main.o
+                0x03801950       0x90 build/src/main.o
                 0x03801950                autonomous()
- *fill*         0x038019dc        0x4 
  .text._Z11usercontrolv
                 0x038019e0      0x4d8 build/src/main.o
                 0x038019e0                usercontrol()
