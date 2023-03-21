@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<head>
 <style>
 div {
   font-family: "Comic Sans MS", cursive;
@@ -19,10 +20,8 @@ p {
   color:blue;
   text-shadow: 0 0 3px ##3341ff;
 }
-
-
-
 </style>
+</head>
 <body>
   <div>
   <h1>95070B Redwood Robotics</h1>
