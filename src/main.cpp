@@ -617,9 +617,9 @@ void usercontrol(void) {
     // shooter
     if (gamers.ButtonL1.pressing()) {
       shooter.set(false);
-      wait(200,msec);
+      wait(175,msec);
       shooter.set(true);
-      wait(100,msec);
+      wait(50,msec);
     }
     if(toggle) {
       gamers.rumble(rumblePulse);
