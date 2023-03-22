@@ -595,7 +595,6 @@ void usercontrol(void) {
   gamers.ButtonLeft.pressed(autominus);
   gamers.ButtonRight.pressed(autoplus);
   while (a) {
-
     if (gamers.ButtonA.pressing()) {
       a = false;
     }
