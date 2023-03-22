@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+<html>
 <body>
 
 <h1 style="font-family: Comic Sans MS; text-align: center; text-shadow: 0 0 5px #330099, 0 0 7px #330099; color: black;"> 95070B Redwood Robotics </h1>
@@ -14,4 +15,4 @@
 <h3 style="font-family: Comic Sans MS; letter-spacing: 2px; color:blue; text-shadow: 0 0 1px #3341ff;"> also very goofy </h3>
 
 </body>
-
+</html>
