@@ -474,6 +474,7 @@ void lgrhgRight() {
   wait(500, msec);
   flywheel.stop(coast);
   spinny.stop();*/
+  setcoast();
 }
 // low goal and roller and high goal left
 void lgrhgLeft() {
