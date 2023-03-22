@@ -430,7 +430,7 @@ void lgrhgRight() {
   spinny.spin(forward,100,percent);
   For(500, 45, 1750);
   flypid(103);
-  LEFT(164);
+  LEFT(163.77);
   wait(600,msec);
   shooter.set(false);
   wait(100, msec);
@@ -448,8 +448,9 @@ void lgrhgRight() {
   LEFT(76);
   spinny.spin(reverse,100,pct);
   For(590, 70, 1);
-  RIGHT(57);
-  For(215,30,2000);
+  RIGHT(60);
+  For(260,30,20);
+  wait(3, sec);
   spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
@@ -501,17 +502,21 @@ void lgrhgLeft() {
   shooter.set(true);
   wait(500, msec);
   flywheel.stop(coast);*/
-  flypid(200);
+  flypid(102.98);
+  wait(4,sec);
   shooter.set(false);
-  wait(500,msec);
-  shooter.set(true);
   wait(100,msec);
-  shooter.set(false);
-  wait(500,msec);
   shooter.set(true);
-  wait(500,msec);
+  wait(3000,msec);
+  shooter.set(false);
+  wait(100,msec);
+  shooter.set(true);
+  wait(300,msec);
+  flywheel.stop(coast);
   spinny.spin(reverse,65,percent);
-  Rev(20,20,750);
+  For(100,20,750);
+  wait(5,sec);
+  spinny.stop();
 }
 
 
@@ -595,7 +600,6 @@ void usercontrol(void) {
       a = false;
     }
   }
-  wait(1, sec);
   while (!a) {
     // ..........................................................................
     // printing temp/speed
