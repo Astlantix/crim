@@ -66,8 +66,8 @@ int numofautons = 5;
 int autoslct = 1;
 
 // my goofy flywheel pid
-/*
-void flypid(double target) {
+
+void speeed(double target) {
   double error = target - flywheel.velocity(percent);
   double kP = 0.1;
   double kI = 0.0001;
@@ -86,53 +86,80 @@ void flypid(double target) {
     wait(20, msec);
   }
 }
-*/
+
+// my pid
+// Define the PID constants
+double fly_kp = 0.2;
+double fly_ki = 1;
+double fly_kd = 0.4;
+
+// Define the error threshold
+double error_threshold = 10;
+
+// Define the timeout
+double timeout = 5; // in seconds
+
+// This is the function that we will be calling in our main program
+void speed(double targspeedpct) {
+  // Convert target speed percentage to RPM
+  double targspeedrpm = targspeedpct * 3600 / 100;
+
+  // Set up variables for PID control and EMA filter
+  double avgrpm = 0;
+  double filtered_velocity = 0;
+  double preverror = 0;
+  double error = 0;
+  double errorsum = 0;
+  double derivative = 0;
+  double alpha = 0.2; // set the filter coefficient
+
+  // Set a timer for the timeout
+  vex::timer t;
+  t.reset();
+  t.time();
+
+  // Run the PID control loop until the error is below the threshold or the timeout has elapsed
+  while (fabs(error) > error_threshold && t.time() < timeout) {
+    // Calculate the average RPM of the flywheel
+    avgrpm = flywheel.velocity(rpm);
+
+    // Apply the EMA filter to smooth out the velocity readings
+    filtered_velocity = alpha * avgrpm + (1 - alpha) * filtered_velocity;
+
+    // Calculate the error between the filtered velocity and the target velocity
+    error = targspeedrpm - filtered_velocity;
+
+    // Calculate the derivative of the error
+    derivative = error - preverror;
+
+    // Add the error to the error sum
+    errorsum += error;
+
+    // Set the previous error to the current error
+    preverror = error;
+
+    // Calculate the flywheel speed based on the PID controller
+    double speed_rpm = error * fly_kp + errorsum * fly_ki + derivative * fly_kd;
+
+    // Set the flywheel speed
+    flywheel.spin(forward, speed_rpm, rpm);
+
+    // Wait for a short time to allow the flywheel to stabilize
+    wait(5, msec);
+  }
+
+  // Stop the flywheel when the target speed has been reached
+  flywheel.stop();
+}
+
 
 // fly pid by my favorite amogh gupta
-
-//This function is used to control the speed of the flywheel
-//It starts by declaring the variables that will be used
-double fly_kp = 0.2; //range of fluctuations
-double fly_ki = 0.2; //increase speed
-double fly_kd = 0.00005; //fluctuations
-double speed_margin_pct = 2;
-bool flyescvar = false;
-double speed_margin = 0;
-double speed_rpm = 0;
 double avgrpm = 0;
 double preverror = 0;
 double error = 0;
 double errorsum = 0;
 double derivative = 0;
-
-//This is the function that we will be calling in our main program
-void speed(double targspeedpct) {
-    double targspeedrpm = (targspeedpct)*3600;
-  //This section sets up the variables that will be used in the PID loop
-
-  
-  
-    //This section of the code will calculate the average RPM of the flywheel
-    avgrpm = flywheel.velocity(rpm);
-    //This section of the code calculates the error between the current speed and the target speed
-    error = targspeedrpm - avgrpm;
-    //This section calculates the derivative of the error
-    derivative = preverror - error;
-    //This section adds the error to the error sum
-    errorsum += error;
-    //This section sets the previous error to the current error
-    preverror = error;
-    //This section calculates the speed margin
-    speed_margin = fabs((error/targspeedrpm)*36);
-    //This section calculates the speed RPM
-    speed_rpm = error * fly_kp + errorsum * fly_ki + derivative * fly_kd;
-    wait(5,msec);
-    flywheel.spin(forward, speed_rpm, rpm);
-    //This section of the code will check to see if the flywheel has reached the correct speed
-
-    //This section of the code will run if the flywheel has not yet reached the correct speed
- 
-}
+double speed_margin = 2;
 double speed_volt = 0; //create a variable to hold the speed in voltage
 /*double preverror = 0; //create a variable to hold the previous error
 double errorsum = 0; //create a variable to hold the sum of errors
@@ -402,8 +429,8 @@ void lgrhgRight() {
   Inertial.setHeading(0,degrees);
   spinny.spin(forward,100,percent);
   For(500, 40, 1750);
-  speed(33);
-  LEFT(170);
+  flypid(100);
+  LEFT(158);
   wait(750,msec);
   shooter.set(false);
   wait(100, msec);
@@ -565,7 +592,7 @@ void usercontrol(void) {
     // ..........................................................................
     // printing temp/speed
     // ..........................................................................
-    int df = flywheel.velocity(percent);
+    int df = flywheel.velocity(rpm);
     double goofygoober = flywheel.temperature(celsius);
     gamers.Screen.clearScreen();
     gamers.Screen.setCursor(1, 1);
@@ -615,17 +642,17 @@ void usercontrol(void) {
     }
 
     else if (gamers.ButtonX.pressing()) {
-      dspeed = 70;
+      dspeed = 65;
       goofy = false;
     }
     else if (gamers.ButtonY.pressing()) {
-      dspeed = 33;
+      dspeed = 90;
       goofy = true;
     }
 
     if (toggle) {
       if(goofy) {
-        speed(dspeed);
+        flypid(dspeed);
       }
       else {
         flypid(dspeed);

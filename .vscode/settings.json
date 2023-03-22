@@ -6,6 +6,7 @@
         "map": "cpp",
         "queue": "cpp",
         "vector": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "string": "cpp"
     }
 }
