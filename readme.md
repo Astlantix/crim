@@ -19,7 +19,7 @@ color:blue;
 text-shadow: 0 0 1px #3341ff;
 }
 </style>
-```html
+
 <body>
 
 <h1> 95070B Redwood Robotics </h1>
@@ -34,4 +34,4 @@ text-shadow: 0 0 1px #3341ff;
 <h3> also very goofy </h3>
 
 </body>
-```
+
