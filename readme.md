@@ -19,19 +19,19 @@ color:blue;
 text-shadow: 0 0 1px #3341ff;
 }
 </style>
-
+```html
 <body>
 
-# 95070B Redwood Robotics
+<h1> 95070B Redwood Robotics </h1>
 
-## Flywheel PID
-### PID for flywheel
+<h2> Flywheel PID </h2>
+<h3> PID for flywheel </h3>
 
-## Odometry (coming soon)
-### goofy odometry
+<h2> Odometry (coming soon) </h2>
+<h3> goofy odometry </h3>
 
-## LVGL (for odom)
-### also very goofy
+<h2> LVGL (for odom) </h2>
+<h3> also very goofy </h3>
 
 </body>
-
+```
