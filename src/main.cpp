@@ -428,22 +428,18 @@ void lgrLeft(bool x) {
 void lgrhgRight() {
   Inertial.setHeading(0,degrees);
   spinny.spin(forward,100,percent);
-  For(500, 40, 1750);
+  For(500, 45, 1750);
   flypid(103);
   LEFT(164);
-  wait(750,msec);
+  wait(600,msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  wait(20,msec);
-  RIGHT(4);
-  flypid(55);
-  wait(2000, msec);
+  wait(2500, msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  flypid(103);
-  wait(1000, msec);
+  wait(2500, msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
@@ -453,7 +449,7 @@ void lgrhgRight() {
   spinny.spin(reverse,100,pct);
   For(590, 70, 1);
   RIGHT(57);
-  For(238,70,2000);
+  For(215,30,2000);
   spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
@@ -477,11 +473,10 @@ void lgrhgRight() {
   wait(500, msec);
   flywheel.stop(coast);
   spinny.stop();*/
-  flywheel.setStopping(hold); 
 }
 // low goal and roller and high goal left
 void lgrhgLeft() {
-  setcoast();
+  /*setcoast();
   lgrLeft(false);
   Rev(70,20,0);
   Left(300, 50, 0);
@@ -505,7 +500,18 @@ void lgrhgLeft() {
   wait(175, msec);
   shooter.set(true);
   wait(500, msec);
-  flywheel.stop(coast);
+  flywheel.stop(coast);*/
+  flypid(200);
+  shooter.set(false);
+  wait(500,msec);
+  shooter.set(true);
+  wait(100,msec);
+  shooter.set(false);
+  wait(500,msec);
+  shooter.set(true);
+  wait(500,msec);
+  spinny.spin(reverse,65,percent);
+  Rev(20,20,750);
 }
 
 
