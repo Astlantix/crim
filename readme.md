@@ -1,6 +1,5 @@
 
-
-
+<!DOCTYPE html>
 <body>
 
 <h1 style="font-family: Comic Sans MS; text-align: center; text-shadow: 0 0 5px #330099, 0 0 7px #330099; color: black;"> 95070B Redwood Robotics </h1>
