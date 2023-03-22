@@ -27,7 +27,6 @@
 
 #include "vex.h"
 
-
 using namespace vex;
 
 // A global instance of competition
@@ -39,6 +38,7 @@ bool a = true;
 
 //..........................................................................
 // ODOMETRY
+
 //..........................................................................
 
 
@@ -398,9 +398,9 @@ void lgrRight(bool x) {
   For(500,20,20);
   spinny.spin(reverse, 65, percent);
   RIGHT(93);
-  For(180, 20, 600);
+  For(178, 20, 1400);
   spinny.stop();
-  Rev(20,0,0);
+  Rev(178,20,0);
 }
 // low goal and roller left
 void lgrLeft(bool x) {
