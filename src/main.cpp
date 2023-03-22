@@ -398,7 +398,7 @@ void lgrRight(bool x) {
   For(500,20,20);
   spinny.spin(reverse, 65, percent);
   RIGHT(93);
-  For(180, 20, 300);
+  For(180, 20, 600);
   spinny.stop();
   Rev(20,0,0);
 }
