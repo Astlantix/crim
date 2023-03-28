@@ -88,9 +88,9 @@ void speeed(double target) {
 
 // my pid
 // Define the PID constants
-const double fly_kp = 0.2;
-const double fly_ki = 1;
-const double fly_kd = 0.4;
+const double fly_kp = 0.05;
+const double fly_ki = 0.0625;
+const double fly_kd = 0.05;
 
 // Define the error threshold
 double error_threshold = 10;
