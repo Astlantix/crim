@@ -428,14 +428,15 @@ void lgrhgRight() {
   flypid(101.2);
   LEFT(163);
   wait(600,msec);
+  waitUntil(flywheel.velocity(rpm) == 190);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  wait(3000, msec);
+  waitUntil(flywheel.velocity(rpm) == 190);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  wait(2500, msec);
+  waitUntil(flywheel.velocity(rpm) == 190);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
@@ -444,9 +445,9 @@ void lgrhgRight() {
   LEFT(76);
   spinny.spin(reverse,100,pct);
   For(590, 70, 1);
-  RIGHT(60);
+  RIGHT(58);
   For(260,30,20);
-  wait(0.5, sec);
+  wait(1, sec);
   spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
@@ -654,7 +655,7 @@ void usercontrol(void) {
       goofy = false;
     }
     else if (gamers.ButtonY.pressing()) {
-      dspeed = 90;
+      dspeed = 101.2;
       goofy = true;
     }
 
