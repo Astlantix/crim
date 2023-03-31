@@ -428,15 +428,14 @@ void lgrhgRight() {
   flypid(101.2);
   LEFT(163);
   wait(600,msec);
-  waitUntil(flywheel.velocity(rpm) == 190);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  waitUntil(flywheel.velocity(rpm) == 190);
+  wait(3000,msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  waitUntil(flywheel.velocity(rpm) == 190);
+  wait(2500,msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
