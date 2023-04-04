@@ -26,19 +26,13 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include "odom.hpp"
 
 using namespace vex;
 
 // A global instance of competition
 competition Competition;
 bool a = true;
-
-
-
-
-//..........................................................................
-// ODOMETRY
-//..........................................................................
 
 
 // ..........................................................................
@@ -374,6 +368,10 @@ void autominus() {
   printing();
 }
 
+void autonexit() {
+  a = false; // exit auton
+}
+
 void sleeping() { wait(15, seconds); }
 
 void shoot(double y, double x, double z) {
@@ -543,6 +541,10 @@ void pre_auton(void) {
   ml.setPosition(0,degrees);
   bl.setPosition(0,degrees);
   br.setPosition(0,degrees);
+
+  //initial position
+  X = 0;
+  Y = 0;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -591,15 +593,16 @@ void usercontrol(void) {
   gamers.Screen.print("sleeping");
   gamers.ButtonLeft.pressed(autominus);
   gamers.ButtonRight.pressed(autoplus);
-  while (a) {
-    if (gamers.ButtonA.pressing()) {
-      a = false;
-    }
-  }
+  gamers.ButtonA.pressed(autonexit);
+
   while (!a) {
     // ..........................................................................
-    // printing temp/speed
+    // printing temp/speed and odometry
     // ..........................................................................
+    Brain.Screen.clearScreen();
+    TrackPOS();
+    Brain.Screen.render(); // push the lcd data to screen at the same time so the screen doesn't flicker
+
     int df = flywheel.velocity(rpm);
     double goofygoober = flywheel.temperature(celsius);
     gamers.Screen.clearScreen();
