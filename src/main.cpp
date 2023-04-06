@@ -163,7 +163,7 @@ void flypid(double flywheel_target_speed_pct) { //create a function to take the 
   double errorsum = 0;
   double error = 0;
   double derivative = 0;
-  while(flyevscar) {
+  while(!flyevscar) {
   averagevolt = flywheel.voltage();
     error = flywheel_target_speed_pct - averagevolt;
     derivative = preverror - error;
