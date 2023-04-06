@@ -455,11 +455,12 @@ void lgrLeft(bool x) {
 
 // low goal and roller and high goal right
 void lgrhgRight() {
-  /*Inertial.setHeading(0,degrees);
+  Inertial.setHeading(0,degrees);
   spinny.spin(forward,100,percent);
   For(500, 45, 1750);
-  LEFT(163);*/
-  flypid(60);
+  LEFT(163);
+  flywheel.spin(forward,1000,rpm);
+  wait(3,sec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
@@ -467,6 +468,7 @@ void lgrhgRight() {
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
+  RIGHT(7);
   wait(2500,msec);
   shooter.set(false);
   wait(100, msec);
@@ -478,7 +480,7 @@ void lgrhgRight() {
   For(590, 70, 1);
   RIGHT(58);
   For(260,30,20);
-  wait(1, sec);
+  wait(0.3, sec);
   spinny.stop();
   /*lgrRight(false);
   Rev(154,20,0);
