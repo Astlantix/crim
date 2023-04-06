@@ -9,7 +9,7 @@
 #define SL 5 //distance from tracking center to middle of left wheel
 #define SR 5 //distance from tracking center to middle of right wheel
 #define SS 7.75 //distance from tracking center to middle of the tracking wheel
-#define WheelDiam 4.125 //diameter of all the wheels being used for tracking
+#define WheelDiam 3 //diameter of all the wheels being used for tracking
 #define tpr 360  //Degrees per single encoder rotation
 double DeltaL,DeltaR,DeltaB,currentL,currentR,PreviousL,PreviousR,DeltaTheta,X,Y,Theta,DeltaXSide,DeltaYSide,SideChord,OdomHeading;
 /*---------------------------------------------------------------------------*/
@@ -23,13 +23,13 @@ void TrackPOS() {
 // Since it is a linear motion, the Left and right will move the same amount so we can just pick a side and do our movement calculation
 // Since this calculation is working based of very infinitely small arcs, the displacement of the robot will be a chord
 // Below it Averages the Left and Right integrated motor encoders since we don't have encoders yet
-  currentR = (fr.position(degrees) + br.position(degrees)) / 2;
-  currentL = (fl.position(degrees) + bl.position(degrees)) / 2;
+  currentR = (fr.position(degrees) + br.position(degrees) + mr.position(degrees)) / 3;
+  currentL = (fl.position(degrees) + bl.position(degrees) + ml.position(degrees)) / 3;
 
-  //Creates variables for change in each side info in inches (12.9590697 is circumference of wheel)
-  DeltaL = ((currentL - PreviousL) * 12.9590697) / tpr;
-  DeltaR = ((currentR - PreviousR) * 12.9590697) / tpr;
-  //DeltaB = ((currentB - PreviousB) * 12.9590697) / tpr;
+  //Creates variables for change in each side info in inches (πr2 is circumference of wheel which is π3 = 9.42477796076938)
+  DeltaL = ((currentL - PreviousL) * 9.42477796076938) / tpr;
+  DeltaR = ((currentR - PreviousR) * 9.42477796076938) / tpr;
+  //DeltaB = ((currentB - PreviousB) * 9.42477796076938) / tpr;
 
   //Determines the change in angle of the robot using the rotational change in each side
   DeltaTheta = (DeltaR - DeltaL) / (SL + SR);

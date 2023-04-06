@@ -80,11 +80,16 @@ void speeed(double target) {
   }
 }
 
-// my pid
+// my pid with amogh's stuff
 // Define the PID constants
 const double fly_kp = 0.05;
 const double fly_ki = 0.0625;
 const double fly_kd = 0.05;
+double speed_margin = 0;
+double speed_marg_pct = 2;
+bool flyevscar = false;
+double speed_volt = 0;
+
 
 // Define the error threshold
 double error_threshold = 10;
@@ -147,31 +152,34 @@ void speed(double targspeedpct) {
 
 
 // fly pid by my favorite amogh gupta
-double avgrpm = 0;
-double preverror = 0;
-double error = 0;
-double errorsum = 0;
-double derivative = 0;
-double speed_margin = 2;
-double speed_volt = 0; //create a variable to hold the speed in voltage
+ //create a variable to hold the speed in voltage
 /*double preverror = 0; //create a variable to hold the previous error
 double errorsum = 0; //create a variable to hold the sum of errors
 double error = 0; //create a variable to hold the current error
 double derivative = 0; //create a variable to hold the derivative*/
 void flypid(double flywheel_target_speed_pct) { //create a function to take the target speed in percent
-  double averagevolt = 0; //create a variable to hold the average voltage
+  double averagevolt = 0;
+  double preverror = 0;
+  double errorsum = 0;
+  double error = 0;
+  double derivative = 0;
+  while(flyevscar) {
+  averagevolt = flywheel.voltage();
+    error = flywheel_target_speed_pct - averagevolt;
+    derivative = preverror - error;
+    errorsum += error;
+    preverror = error;
+    speed_margin = fabs((error/flywheel_target_speed_pct) * 100);
+    speed_volt =  error * fly_kp + fly_ki * errorsum + fly_kd * derivative;
   
-  double flywheel_target_speed_volt = (flywheel_target_speed_pct/100)*12; //calculate the target speed in voltage
-
-  averagevolt = flywheel.voltage(); //measure the average voltage
-  error = flywheel_target_speed_volt - averagevolt; //calculate the error
-  derivative = preverror - error; //calculate the derivative
-  errorsum += error; //add the error to the sum of errors
-  preverror = error; //set the previous error to the current error
-  speed_margin = fabs((error/flywheel_target_speed_volt) * 100); //calculate the margin of error as a percentage
-  speed_volt =  error * fly_kp + fly_ki * errorsum + fly_kd * derivative; //calculate the speed in voltage
   
-  flywheel.spin(fwd, speed_volt, volt); //spin the flywheel at the calculated speed
+    if(speed_margin <= speed_marg_pct) {
+      flyevscar = true;
+    } else {
+        flywheel.spin(forward, speed_volt, volt);
+    }
+    wait(10, msec);
+    }
 }
 
 // drive code
@@ -420,12 +428,12 @@ void lgrLeft(bool x) {
 
 // low goal and roller and high goal right
 void lgrhgRight() {
-  Inertial.setHeading(0,degrees);
+  /*Inertial.setHeading(0,degrees);
   spinny.spin(forward,100,percent);
   For(500, 45, 1750);
-  flypid(101.2);
-  LEFT(163);
-  wait(600,msec);
+  LEFT(163);*/
+  flypid(90);
+  wait(4000,msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
@@ -497,7 +505,7 @@ void lgrhgLeft() {
   shooter.set(true);
   wait(500, msec);
   flywheel.stop(coast);*/
-  flypid(102.98);
+  flypid(75);
   wait(4,sec);
   shooter.set(false);
   wait(100,msec);
@@ -559,6 +567,7 @@ void pre_auton(void) {
 
 void autonomous(void) {
   a = false;
+  TrackPOS();
   if (autoslct == 1) {
     sleeping();
   }
@@ -593,7 +602,10 @@ void usercontrol(void) {
   gamers.Screen.print("sleeping");
   gamers.ButtonLeft.pressed(autominus);
   gamers.ButtonRight.pressed(autoplus);
-  gamers.ButtonA.pressed(autonexit);
+  
+  while(a) {
+    gamers.ButtonA.pressed(autonexit);
+  }
 
   while (!a) {
     // ..........................................................................
