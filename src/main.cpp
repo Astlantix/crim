@@ -459,16 +459,17 @@ void lgrhgRight() {
   spinny.spin(forward,100,percent);
   For(500, 45, 1750);
   LEFT(163);
-  flywheel.spin(forward,1000,rpm);
+  flywheel.spin(forward,187,rpm);
   wait(3,sec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
+  RIGHT(4);
   wait(3000,msec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
-  RIGHT(7);
+  RIGHT(4);
   wait(2500,msec);
   shooter.set(false);
   wait(100, msec);
@@ -476,7 +477,7 @@ void lgrhgRight() {
   wait(150, msec);
   flywheel.stop(coast);
   LEFT(76);
-  spinny.spin(reverse,100,pct);
+  spinny.spin(reverse,50,pct);
   For(590, 70, 1);
   RIGHT(58);
   For(260,30,20);
