@@ -700,8 +700,7 @@ void usercontrol(void) {
       goofy = false;
     }
     else if (gamers.ButtonY.pressing()) {
-      dspeed = 101.2;
-      goofy = true;
+      stoop();
     }
 
     if (toggle) {
@@ -725,6 +724,13 @@ void usercontrol(void) {
     else if(gamers.ButtonB.pressing()) {
       latch = false;
       toggle = false;
+      setcoast();
+      ml.setBrake(coast);
+      mr.setBrake(coast);
+      bl.setBrake(coast);
+      br.setBrake(coast);
+      fl.setBrake(coast);
+      fr.setBrake(coast);
     }
     // shooter
     if (gamers.ButtonL1.pressing()) {
