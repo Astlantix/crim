@@ -715,7 +715,7 @@ void usercontrol(void) {
       flywheel.stop(coast);
     }
 
-    if (gamers.ButtonA.pressing() || gamers.ButtonY.pressing() || gamers.ButtonX.pressing()) {
+    if (gamers.ButtonA.pressing() || gamers.ButtonX.pressing()) {
       if (!latch) {
         toggle = 1;
         latch = true;
