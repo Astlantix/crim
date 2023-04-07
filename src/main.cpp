@@ -35,6 +35,8 @@ competition Competition;
 bool a = true;
 
 
+
+
 // ..........................................................................
 // drivetrain variables
 // ..........................................................................
@@ -460,7 +462,7 @@ void lgrhgRight() {
   For(500, 45, 1750);
   LEFT(163);
   flywheel.spin(forward,187,rpm);
-  wait(3,sec);
+  wait(1.1,sec);
   shooter.set(false);
   wait(100, msec);
   shooter.set(true);
