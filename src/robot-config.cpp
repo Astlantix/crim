@@ -21,6 +21,8 @@ optical Optical = optical(PORT20);
 digital_out shooter = digital_out(Brain.ThreeWirePort.A);
 controller gamers = controller(primary);
 digital_out expansion = digital_out(Brain.ThreeWirePort.B);
+encoder xp = encoder(Brain.ThreeWirePort.C);
+encoder yp = encoder(Brain.ThreeWirePort.E);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

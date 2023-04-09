@@ -17,6 +17,8 @@ extern optical Optical;
 extern digital_out shooter;
 extern controller gamers;
 extern digital_out expansion;
+extern encoder xp;
+extern encoder yp;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

@@ -27,6 +27,7 @@
 
 #include "vex.h"
 #include "odom.hpp"
+#include "goofyodom.hpp"
 
 using namespace vex;
 
@@ -373,6 +374,21 @@ void Left(double x, double y, double z) {
   br.spinFor(forward, x, degrees);
   wait(z, msec);
 }
+
+void travel(double x, double y) {
+  double length = fabs(xpos - x);
+  double height = fabs(ypos-y);
+  double hypot = sqrt((length*length)+(height*height));
+  double rotate = 1;
+  if(rotate <= 180) {
+    Right(rotate*2,100,20);
+  }
+  else{
+    Left((360-rotate)*2,100,20);
+  }
+  For(hypot*23,100,100);
+}
+
 void printing() {
   gamers.Screen.clearScreen();
   gamers.Screen.setCursor(1, 1);
