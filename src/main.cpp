@@ -390,7 +390,9 @@ void travel(double x, double y) {
   double length = fabs(xpos - x);
   double height = fabs(ypos-y);
   double hypot = sqrt((length*length)+(height*height));
-  double rotate = 1;
+  double tangent = height/length;
+  //double rotate = atan(tangent)*180/3.14159265358979323846;
+  double rotate = atan(tangent);
   if(rotate <= 180) {
     Right(rotate*2,100,20);
   }

@@ -68,15 +68,15 @@ Discarded input sections
 
  .text          0x00000000        0x0 build/src/main.o
  .text._Z10xposchangev
-                0x00000000       0x58 build/src/main.o
+                0x00000000       0x60 build/src/main.o
  .ARM.exidx.text._Z10xposchangev
                 0x00000000        0x8 build/src/main.o
  .text._Z10yposchangev
-                0x00000000       0x58 build/src/main.o
+                0x00000000       0x60 build/src/main.o
  .ARM.exidx.text._Z10yposchangev
                 0x00000000        0x8 build/src/main.o
  .text._Z8odometrydd
-                0x00000000       0x18 build/src/main.o
+                0x00000000       0xec build/src/main.o
  .ARM.exidx.text._Z8odometrydd
                 0x00000000        0x8 build/src/main.o
  .text._Z14inches2degreesd
@@ -122,11 +122,18 @@ Discarded input sections
                 0x00000000      0x118 build/src/main.o
  .ARM.exidx.text._Z4Leftddd
                 0x00000000        0x8 build/src/main.o
+ .text._Z6traveldd
+                0x00000000       0xd0 build/src/main.o
+ .ARM.exidx.text._Z6traveldd
+                0x00000000        0x8 build/src/main.o
  .text._Z8sleepingv
                 0x00000000       0x18 build/src/main.o
  .ARM.exidx.text._Z8sleepingv
                 0x00000000        0x8 build/src/main.o
  .bss.DeltaB    0x00000000        0x8 build/src/main.o
+ .bss.xpos      0x00000000        0x8 build/src/main.o
+ .bss.ypos      0x00000000        0x8 build/src/main.o
+ .bss.heading   0x00000000        0x8 build/src/main.o
  .data.lowgoal  0x00000000        0x8 build/src/main.o
  .data.shortdist
                 0x00000000        0x8 build/src/main.o
