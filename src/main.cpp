@@ -387,8 +387,8 @@ void Left(double x, double y, double z) {
 }
 
 void travel(double x, double y) {
-  double length = fabs(xpos - x);
-  double height = fabs(ypos-y);
+  double length = fabs(-X - x);
+  double height = fabs(Y-y);
   double hypot = sqrt((length*length)+(height*height));
   double tangent = height/length;
   //double rotate = atan(tangent)*180/3.14159265358979323846;
