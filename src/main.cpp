@@ -74,25 +74,7 @@ int autoslct = 1;
 
 // my goofy flywheel pid
 
-void speeed(double target) {
-  double error = target - flywheel.velocity(percent);
-  double kP = 0.1;
-  double kI = 0.0001;
-  double kD = 0.0001;
-  double integral = 0;
-  double derivative = 0;
-  double lastError = 0;
-  double power = 0;
-  while (true) {
-    error = target - flywheel.velocity(percent);
-    integral = integral + error;
-    derivative = error - lastError;
-    power = (error * kP) + (integral * kI) + (derivative * kD);
-    flywheel.spin(forward, power, percent);
-    lastError = error;
-    wait(20, msec);
-  }
-}
+
 
 // my pid with amogh's stuff
 // Define the PID constants
@@ -112,7 +94,7 @@ double error_threshold = 10;
 double timeout = 5; // in seconds
 
 // This is the function that we will be calling in our main program
-void speed(double targspeedpct) {
+/*void speed(double targspeedpct) {
   // Convert target speed percentage to RPM
   double targspeedrpm = targspeedpct * 3600 / 100;
 
@@ -162,7 +144,7 @@ void speed(double targspeedpct) {
 
   // Stop the flywheel when the target speed has been reached
   flywheel.stop();
-}
+}*/
 
 
 // fly pid by my favorite amogh gupta and me
@@ -193,35 +175,54 @@ void flypid(double flywheel_target_speed_pct) { //create a function to take the 
   flywheel.spin(fwd, speed_volt, volt); //spin the flywheel at the calculated speed
 }
 
- //create a variable to hold the speed in voltage
-/*double preverror = 0; //create a variable to hold the previous error
-double errorsum = 0; //create a variable to hold the sum of errors
-double error = 0; //create a variable to hold the current error
-double derivative = 0; //create a variable to hold the derivative*/
-void idk(double flywheel_target_speed_pct) { //create a function to take the target speed in percent
-  double averagevolt = 0;
-  double preverror = 0;
-  double errorsum = 0;
-  double error = 0;
-  double derivative = 0;
-  while(!flyevscar) {
-  averagevolt = flywheel.voltage();
-    error = flywheel_target_speed_pct - averagevolt;
-    derivative = preverror - error;
-    errorsum += error;
-    preverror = error;
-    speed_margin = fabs((error/flywheel_target_speed_pct) * 100);
-    speed_volt =  error * fly_kp + fly_ki * errorsum + fly_kd * derivative;
-  
-  
-    if(speed_margin <= speed_marg_pct) {
-      flyevscar = true;
-    } 
-    else {
-        flywheel.spin(forward, speed_volt, volt);
-    }
+// Set the PID constants
+double Kp = 0.1;
+double Ki = 0.01;
+double Kd = 0.05;
+// Define the PID controller function
+void speed(double targetRPM) {
+    // Set the initial values for the PID variables
+    double prevError = 0;
+    double integral = 0;
+
+    // Set the maximum motor power in RPM
+    double maxRPM = 2000;
+
+    while(true) {
+        // Measure the current RPM
+        double currentRPM = flywheel.velocity(rpm);
+
+        // Calculate the error
+        double error = targetRPM - currentRPM;
+
+        // Calculate the proportional term
+        double P = Kp * error;
+
+        // Calculate the integral term
+        integral += error;
+        double I = Ki * integral;
+
+        // Calculate the derivative term
+        double derivative = error - prevError;
+        double D = Kd * derivative;
+
+        // Calculate the output
+        double output = P + I + D;
+
+        // Limit the output to the maximum motor power in RPM
+        output = fmax(-maxRPM, fmin(output, maxRPM));
+
+        // Set the motor power in RPM
+        flywheel.spin(forward, output, rpm);
+
+        // Update the previous error
+        prevError = error;
+
+        // Wait for a short time to avoid overwhelming the system
+        wait(10, msec);
     }
 }
+
 
 // drive code
 void dtcode(double y, double x) { //define the function
@@ -469,7 +470,7 @@ void lgrRight(bool x) {
 void lgrLeft(bool x) {
   setcoast();
   if(x){
-    speed(20);
+    //speed(20);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
@@ -490,7 +491,7 @@ void lgrhgRight() {
   spinny.spin(forward,100,percent);
   For(500, 45, 1750);
   LEFT(163);
-  flywheel.spin(forward,187,rpm);
+  speed(200);
   wait(1.1,sec);
   shooter.set(false);
   wait(100, msec);
