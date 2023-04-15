@@ -27,7 +27,7 @@
 
 #include "vex.h"
 #include "odom.hpp"
-#include "goofyodom.hpp"
+
 
 using namespace vex;
 
