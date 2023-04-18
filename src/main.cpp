@@ -470,7 +470,7 @@ void lgrRight(bool x) {
 void lgrLeft(bool x) {
   setcoast();
   if(x){
-    //speed(20);
+    speed(20);
     wait(2500, msec);
     shoot(500, lowgoal, lowgoal);
     shoot(500, lowgoal, lowgoal);
